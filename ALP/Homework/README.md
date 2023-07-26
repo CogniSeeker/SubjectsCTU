@@ -1,6 +1,4 @@
-# Short description of every project
-
-## Homework folder
+## Short description of every project
 
 ### 1: Sum of cubes calculator for a given range
 
