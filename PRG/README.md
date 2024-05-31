@@ -14,13 +14,13 @@ The task is to decrypt a message encoded with the Caesar cipher, where each lett
 This extends the previous task to handle complete letter loss or addition, with varying input lengths. It uses the Wagner-Fischer algorithm to compute Levenshtein distance and determine the most likely text. This task focuses on dynamic memory allocation and testing with inputs of different lengths.
 
 ## 05 Matrix calculator
-Without using the <string.h> library, write a program to read lines from a file containing a specified string, implementing a simplified version of the Unix grep command. Additional features include standard input redirection, regular expressions, and colored output.
+The program to read lines from a file containing a specified string, implementing a simplified version of the Unix grep command without using the <string.h> library. Additional features include standard input redirection, regular expressions, and colored output.
 
 ## 06 Circular queue
-Implement a circular queue in an array where elements do not shift during pop() operations. The array is conceptually circular, and pointers move to indicate the start and end of the data region. Special attention is required when elements wrap around to the beginning of the array.
+A circular queue in an array where elements do not shift during pop() operations. The array is conceptually circular, and pointers move to indicate the start and end of the data region. Special attention is required when elements wrap around to the beginning of the array.
 
 ## 07 Linked list queue
-Implement a queue using a linked list to store integers. The queue should support operations like push() to add elements, pop() to remove elements, insert() to insert elements in order, erase() to delete specific elements, getEntry() to get the value at a specific position, size() to return the current number of elements, and clear() to remove all elements.
+A queue using a linked list to store integers. The queue supports operations like push() to add elements, pop() to remove elements, insert() to insert elements in order, erase() to delete specific elements, getEntry() to get the value at a specific position, size() to return the current number of elements, and clear() to remove all elements.
 
 ## Testing
 1. **Create a Directory**: Set up a directory for your homework assignments.
