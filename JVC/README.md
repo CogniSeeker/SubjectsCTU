@@ -7,29 +7,29 @@ Detailed documentation of all projects can be found on my [personal webiste](htt
 
 ## List of projects:
 
-### 2D laser cutting
+1. ### 2D laser cutting
 A palm tree from polygons cut from a 2.4 mm cardboard using laser cutting.
 
-### 3D printing and scanning
+2. ### 3D printing and scanning
 A watch stand 3D printed from PLA and a chess queen scanned using a 3D scanner. 
 
-### Kinetic sculpture 
+3. ### Kinetic sculpture 
 A wooden production line powered by Geneva linear mechanism, created in Fusion 360 and cut using laser cutting.
 
-### Electronics assembly
+4. ### Electronics assembly
 A simple soldered led blinker.
 
-### Atari Breakout game 
+5. ### Atari Breakout game 
 An Atari Breakout game on OLED and LCD dispays with a paddle controlled by a slide potentiometer. 
 
-### Load lifting by a servo with encoder
+6. ### Load lifting by a servo with encoder
 A program for a servo motor SG90 controlled by an encoder to test the maximum weight load.
 
-### An American Saloon sign
+7. ### An American Saloon sign
 An American Saloon sign based on a meme and milled on a CNC machine.
 
-### Moulding and casting
+8. ### Moulding and casting
 Moulding and casting a small figure and a circuit board.
 
-### Team CNC project
+9. ### Team CNC project
 CNC machine that draws pictures using long exposition.

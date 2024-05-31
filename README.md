@@ -6,7 +6,7 @@ Here I publish my projects from different subjects at Czech Technical University
 ## ALP (Algorithms and Programming)
 This course focused on implementing various algorithms and programming challenges using Python. The projects include topics like working with sequences, RSA encryption, BFS algorithms, finding the closest point and circumference, solutions for Tic-Tac-Toe strategies, and Ubongo figure placements. You will also find an implemented player for a TRAX game as the semestral project.
 
-# JVC (How to make (almost) anything)
+## JVC (How to make (almost) anything)
 
 In this course, we will take an exciting journey through various engineering domains, including laser cutting, 3D printing and scanning, electronics assembly, Arduino projects, CNC milling, and more. One of the tasks in this project is to create a personal website to document our progress and results.
 

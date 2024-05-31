@@ -1,4 +1,4 @@
-# Stroj Beta - Dlouhá expozice
+# Machine Bravo - Long exposure
 
 **Note**: the documentation for this project was taken from our team repository on GitLab for the FEL faculty.
 
