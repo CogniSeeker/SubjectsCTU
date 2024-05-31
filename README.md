@@ -1,5 +1,5 @@
 # CTU FEL CyR (Cybernetics and Robotics) projects
-Here I publish my projects from different subjects in Czech Technical University. Each folder corresponds to a different subject I've studied and focuses on a specific topic. Feel free to browse, use, and contribute.
+Here I publish my projects from different subjects at Czech Technical University. Each folder corresponds to a different subject I've studied and focuses on a specific topic. Feel free to browse, use, and contribute.
 
 **Disclaimer:** If you are a student at CTU, close this page now! These notes and code snippets are highly contagious and may cause academic misconduct symptoms. Use them responsibly and remember: copying may lead to catastrophic exam results. You have been warned. 
 
