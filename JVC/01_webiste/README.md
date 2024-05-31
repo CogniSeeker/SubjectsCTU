@@ -1,0 +1,1 @@
+To see the most up to date version of the website, please visit this [link](https://b232_b3b35jvc.pages.fel.cvut.cz/borysole).

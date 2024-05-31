@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+  
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fusion360 | How to do (almost) anything - Oleh Borys&#39; blog</title>
+  
+  
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="../../borysole/assets/css/theme.min.b6d5b9b87b4de92098b22d7878ca11d92be13ecc5e85121818776fce1be8b973.css" integrity="sha256-ttW5uHtN6SCYsi14eMoR2SvhPsxehRIYGHdvzhvouXM=" crossorigin="anonymous">
+
+  
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+  
+  <link rel="alternate" type="application/rss+xml" href="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/tags/fusion360/index.xml" title="How to do (almost) anything - Oleh Borys' blog" /><link rel=apple-touch-icon sizes=180x180 href=//b232_b3b35jvc.pages.fel.cvut.cz/borysole//assets/favicon/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=//b232_b3b35jvc.pages.fel.cvut.cz/borysole//assets/favicon/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=//b232_b3b35jvc.pages.fel.cvut.cz/borysole//assets/favicon/favicon-16x16.png><link rel=manifest href=//b232_b3b35jvc.pages.fel.cvut.cz/borysole//assets/favicon/site.webmanifest><link rel=mask-icon href=//b232_b3b35jvc.pages.fel.cvut.cz/borysole//assets/favicon/safari-pinned-tab.svg color=#7817c4><link rel=icon href=//b232_b3b35jvc.pages.fel.cvut.cz/borysole//assets/favicon/favicon.ico type=image/x-icon><link rel="shortcut icon" href=//b232_b3b35jvc.pages.fel.cvut.cz/borysole//assets/favicon/favicon.ico type=image/x-icon><meta name=apple-mobile-web-app-title content="Vibrant Shadows Theme"><meta name=application-name content="Vibrant Shadows Theme"><meta name=msapplication-TileColor content="#ffffff"><meta name=theme-color content="#ffffff">
+  
+  
+  
+  <meta name="theme-color" content="#fff6f8">
+  
+  <meta name="msapplication-navbutton-color" content="#fff6f8">
+  
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  
+  
+  
+  
+  
+    
+      
+
+
+
+
+
+
+
+<meta name="title" content="Fusion360 | How to do (almost) anything - Oleh Borys&#39; blog" />
+<meta name="description" content="How to make almost anything by Oleh Borys"> 
+
+
+<link rel="canonical" href="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/tags/fusion360/" />
+
+
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:description" content="" /> 
+  <meta name="twitter:title" content="Fusion360 | How to do (almost) anything - Oleh Borys&#39; blog" />
+  <meta name="twitter:url" content="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/tags/fusion360/" />
+  <meta name="twitter:site" content="@Softorage" /> 
+  <meta name="twitter:creator" content="@Softorage" /> 
+  <meta name="twitter:image" content="" /> 
+
+
+
+  
+  <meta property="og:title" content="Fusion360 | How to do (almost) anything - Oleh Borys&#39; blog" />
+  <meta property="og:description" content="" /> 
+  <meta property="og:site_name" content="How to do (almost) anything - Oleh Borys&#39; blog" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/tags/fusion360/" />
+  
+  <meta property="og:image" content="" /> 
+
+
+
+<meta property="article:published_time" content="2024-04-14 00:00:00 &#43;0000 UTC" />
+
+
+  
+  
+  
+
+
+    
+    <meta name="generator" content="Hugo 0.123.4">
+</head>
+
+
+  
+  
+  <body class="dark"><header>
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top flex-column">
+    <div class="d-none shadow"></div>
+    <div class="container-fluid">
+      
+      <a class="navbar-brand px-3" href="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/"><span class="brand-color"><span class="brand align-middle"><span class="align-middle ml-3">JVC home</span></span></span></a>
+      
+      
+      
+      
+      
+      
+        
+      
+      
+        
+      
+      
+      
+      
+      
+        <a class="navbar-toggler border-0 bg-nav p-2" role="button" href="#" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="text-clr2">&#9776;</span>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          
+          
+            <div class="order-md-1 my-2">
+              
+                  
+                <div class="d-inline-block ml-md-auto mr-2 my-auto p-1 pr-2 bg-nav
+                rounded-lg
+                
+                ">
+                  
+                    
+                      <a class="ml-1" href="https://github.com/CogniSeeker"><span class="fab fa-github" aria-label="Join us on Github"></span></a>
+                    
+                  
+                    
+                      <a class="ml-1" href="https://gitlab.fel.cvut.cz/B232_B3B35JVC/borysole"><span class="fab fa-gitlab" aria-label="Join us on Gitlab"></span></a>
+                    
+                  
+                    
+                      <a class="ml-1" href="https://www.instagram.com/olegboryss/"><span class="fab fa-instagram" aria-label="Join us on Instagram"></span></a>
+                    
+                  
+                </div>
+              
+              
+              
+            </div>
+          
+          
+          
+          <ul class="navbar-nav order-md-0 mr-md-auto">
+             
+            
+              
+                <li class="nav-item mx-1 my-2">
+                  <a class="btn bg-nav text-clr1" href="../../borysole/b232_b3b35jvc.pages.fel.cvut.cz/borysole">Weeks</a>
+                </li>
+              
+            
+              
+                <li class="nav-item mx-1 my-2">
+                  <a class="btn bg-nav text-clr1" href="../../borysole/about-me/">About me</a>
+                </li>
+              
+            
+          </ul>
+          
+
+          
+          
+        </div>
+      
+      
+    </div>
+    
+  </nav>
+</header>
+
+    
+    
+    <div id="content"><div class="container-fluid bg-nav text-clr1 text-center pb-3 pt-4 position-relative shadow-sm">
+  <div style="height:3.5rem;"></div>
+  <div class="mobile-only" style="height:2.5rem;"></div>
+  <h1># Fusion360</h1>
+  <p></p>
+</div>
+<div class="container-fluid bg-mat py-3">
+  
+  
+    <div class="card mb-3">
+      <div class="card-body text-antinav">
+        <span class="anchor" id="week_2:_2d_laser_cutting_and_stickers"></span>
+        
+        
+        
+        
+        
+        <div class="row">
+        
+          <div class="col-md-auto my-auto pb-2">
+            
+          </div> 
+          
+          <div class="col my-auto py-2">
+        
+            <h2>
+              <a class="text-reset" href="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week2/"><span class="card-title text-reset"> Week 2: 2D Laser cutting and stickers</span></a>
+            </h2>
+            
+            
+            
+            
+              <div class="card-subtitle font-weight-bold small post-meta">
+                
+                
+                  
+                    
+                  
+                
+                  
+                
+                  
+                    
+                  
+                
+                  
+                    
+                  
+                By Oleh Borys &#183; 3 min read &#183; <span class=''>Last updated: February 19, 2024</span></div>
+            
+              
+              
+            
+              <div class="pb-1 mt-1"><a href="../../tags/get-started/"><span class="badge badge-pill bg-clr2 text-nav mr-2 mb-1 py-2">#GET STARTED</span></a><a href="../../tags/fusion360/"><span class="badge badge-pill bg-clr2 text-nav mr-2 mb-1 py-2">#FUSION360</span></a><a href="../../tags/2d-cutting/"><span class="badge badge-pill bg-clr2 text-nav mr-2 mb-1 py-2">#2 D CUTTING</span></a></div>
+            
+              
+            
+            <div class="card-text"><p>Creating a palm tree and a sticker of the Ramstein logo</p></div>
+                          
+            <div class="mb-3">
+              
+              
+              
+              
+            </div>
+            
+            <a class="font-weight-bold text-reset text-decoration-none" href="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week2/"><nobr>Read more →</nobr></a>            
+          </div>
+          
+        </div> 
+        
+      
+      </div>
+    </div>
+  
+    <div class="card mb-3">
+      <div class="card-body text-antinav">
+        <span class="anchor" id="week_3:_3d_printing_and_scanning"></span>
+        
+        
+        
+        
+        
+        <div class="row">
+        
+          <div class="col-md-auto my-auto pb-2">
+            
+          </div> 
+          
+          <div class="col my-auto py-2">
+        
+            <h2>
+              <a class="text-reset" href="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week3/"><span class="card-title text-reset"> Week 3: 3D printing and scanning</span></a>
+            </h2>
+            
+            
+            
+            
+              <div class="card-subtitle font-weight-bold small post-meta">
+                
+                
+                  
+                    
+                  
+                
+                  
+                
+                  
+                    
+                  
+                
+                  
+                    
+                  
+                By Oleh Borys &#183; 2 min read &#183; <span class=''>Last updated: March 8, 2020</span></div>
+            
+              
+              
+            
+              <div class="pb-1 mt-1"><a href="../../tags/3d-printing/"><span class="badge badge-pill bg-clr2 text-nav mr-2 mb-1 py-2">#3 D PRINTING</span></a><a href="../../tags/fusion360/"><span class="badge badge-pill bg-clr2 text-nav mr-2 mb-1 py-2">#FUSION360</span></a><a href="../../tags/scanning/"><span class="badge badge-pill bg-clr2 text-nav mr-2 mb-1 py-2">#SCANNING</span></a></div>
+            
+              
+            
+            <div class="card-text">3D Printing Preparation This week we learned how to print models created in Fusion360 and sliced in SLicer afterwards. We used PLA filament and Prusa i3 MK3s, Bambulab A1 Mini FDM 3D printers.
+We needed to print model that would be max 5cm^3, so it had an impact on my choice. I decided to create a universal watch stand that would suit for my watches.
+Model design Firstly, I measured dimensions of my watch band and designed a model in Fusion360 and tried to do it the largest I could.</div>
+                          
+            <div class="mb-3">
+              
+              
+              
+              
+            </div>
+            
+            <a class="font-weight-bold text-reset text-decoration-none" href="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week3/"><nobr>Read more →</nobr></a>            
+          </div>
+          
+        </div> 
+        
+      
+      </div>
+    </div>
+  
+    <div class="card mb-3">
+      <div class="card-body text-antinav">
+        <span class="anchor" id="week_4:_kinematic_structures"></span>
+        
+        
+        
+        
+        
+        <div class="row">
+        
+          <div class="col-md-auto my-auto pb-2">
+            
+          </div> 
+          
+          <div class="col my-auto py-2">
+        
+            <h2>
+              <a class="text-reset" href="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week4/"><span class="card-title text-reset"> Week 4: Kinematic structures</span></a>
+            </h2>
+            
+            
+            
+            
+              <div class="card-subtitle font-weight-bold small post-meta">
+                
+                
+                  
+                    
+                  
+                
+                  
+                
+                  
+                    
+                  
+                
+                  
+                    
+                  
+                By Oleh Borys &#183; 1 min read &#183; <span class=''>Last updated: March 15, 2024</span></div>
+            
+              
+              
+            
+              <div class="pb-1 mt-1"><a href="../../tags/fusion360/"><span class="badge badge-pill bg-clr2 text-nav mr-2 mb-1 py-2">#FUSION360</span></a><a href="../../tags/2d-cutting/"><span class="badge badge-pill bg-clr2 text-nav mr-2 mb-1 py-2">#2 D CUTTING</span></a><a href="../../tags/wood/"><span class="badge badge-pill bg-clr2 text-nav mr-2 mb-1 py-2">#WOOD</span></a><a href="../../tags/gears/"><span class="badge badge-pill bg-clr2 text-nav mr-2 mb-1 py-2">#GEARS</span></a></div>
+            
+              
+            
+            <div class="card-text">Creating Conveyor based on the Geneva linear mechanism
+Conveyor based on the Geneva linear mechanism Preparation This week we learned how to create kinematic structures in Fusion360, especially using Add-on for creating gears.
+I was inspired by the Linear Geneva mechanism
+So I decided to create a conveyor based on the Geneva linear mechanism.
+Model design Here is the model I designed in Fusion360
+Model printing and cutting Firstly I decided to print a few parts to try they matches, especially the wholes for rotation.</div>
+                          
+            <div class="mb-3">
+              
+              
+              
+              
+            </div>
+            
+            <a class="font-weight-bold text-reset text-decoration-none" href="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week4/"><nobr>Read more →</nobr></a>            
+          </div>
+          
+        </div> 
+        
+      
+      </div>
+    </div>
+  
+    <div class="card mb-3">
+      <div class="card-body text-antinav">
+        <span class="anchor" id="week_8:_large_machining"></span>
+        
+        
+        
+        
+        
+        <div class="row">
+        
+          <div class="col-md-auto my-auto pb-2">
+            
+          </div> 
+          
+          <div class="col my-auto py-2">
+        
+            <h2>
+              <a class="text-reset" href="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week8/"><span class="card-title text-reset"> Week 8: Large machining</span></a>
+            </h2>
+            
+            
+            
+            
+              <div class="card-subtitle font-weight-bold small post-meta">
+                
+                
+                  
+                    
+                  
+                
+                  
+                
+                  
+                    
+                  
+                
+                  
+                    
+                  
+                By Oleh Borys &#183; 1 min read &#183; <span class=''>Last updated: April 14, 2024</span></div>
+            
+              
+              
+            
+              <div class="pb-1 mt-1"><a href="../../tags/cnc/"><span class="badge badge-pill bg-clr2 text-nav mr-2 mb-1 py-2">#CNC</span></a><a href="../../tags/wood/"><span class="badge badge-pill bg-clr2 text-nav mr-2 mb-1 py-2">#WOOD</span></a><a href="../../tags/fusion360/"><span class="badge badge-pill bg-clr2 text-nav mr-2 mb-1 py-2">#FUSION360</span></a></div>
+            
+              
+            
+            <div class="card-text">Milling a Saloon sign using a CNC
+An American Saloon sign, milled on a CNC Idea This week we had the opportunity to use the CNC milling machine, so I took this chance to capture the famous meme about the US - &ldquo;WHAT THE F*CK IS A KILOMETER&rdquo; (eagle screech)
+on a wooden Saloon sign like this
+Model design Here is the model I designed in Fusion360
+I decided to use all the wood available to me, so the dimensions of the sign are 50 x 30 cm (or 5 x 3 standart cheeseburgers).</div>
+                          
+            <div class="mb-3">
+              
+              
+              
+              
+            </div>
+            
+            <a class="font-weight-bold text-reset text-decoration-none" href="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week8/"><nobr>Read more →</nobr></a>            
+          </div>
+          
+        </div> 
+        
+      
+      </div>
+    </div>
+  
+</div>
+    </div><footer class="text-center p-2 text-muted footer">
+  
+    
+  
+
+  <div class="py-2 lead">
+      Stay tuned
+    </div>
+
+  <div class="py-2 copyright">
+    <small>Copyright &#169; 2024 Oleh Borys <b>&#183;</b> Content license: CC-BY-SA-3.0 <b>&#183;</b> Powered by <a class="font-weight-bold text-reset text-decoration-none" href="https://gohugo.io">Hugo</a> <b>&#183;</b> Theme <a class="font-weight-bold text-reset text-decoration-none" href="https://github.com/Softorage/HugoTheme-VibrantShadows">Vibrant Shadows</a> by <span class="softorage"><a class="font-weight-bold text-reset" href="https://softorage.com">Softorage</a></span></small>
+  </div>
+</footer>
+
+    
+    
+    <script src="../../borysole/assets/js/main.min.a65d872ebfe8d4e6119e5079951ba63a7bdc584e28ec621b1004a638701e0da8.js" integrity="sha256-pl2HLr/o1OYRnlB5lRumOnvcWE4o7GIbEASmOHAeDag=" crossorigin="anonymous"></script>
+    
+    <script src="../../borysole/js/custom.min.0ee40d13987d681c6929562fcaa34476ac4426a99cf20e686931d57a7d7d123a.js" integrity="sha256-DuQNE5h9aBxpKVYvyqNEdqxEJqmc8g5oaTHVen19Ejo=" crossorigin="anonymous"></script>
+    
+    <script></script>
+    
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Lato&display=swap" rel="stylesheet">
+    
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Scanning on How to do (almost) anything - Oleh Borys&#39; blog</title>
+    <link>//b232_b3b35jvc.pages.fel.cvut.cz/borysole/tags/scanning/</link>
+    <description>Recent content in Scanning on How to do (almost) anything - Oleh Borys&#39; blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>All rights reserved.</copyright>
+    <lastBuildDate>Sun, 08 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/tags/scanning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Week 3: 3D printing and scanning</title>
+      <link>//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week3/</link>
+      <pubDate>Sun, 08 Mar 2020 00:00:00 +0000</pubDate>
+      <guid>//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week3/</guid>
+      <description>3D Printing Preparation This week we learned how to print models created in Fusion360 and sliced in SLicer afterwards. We used PLA filament and Prusa i3 MK3s, Bambulab A1 Mini FDM 3D printers.&#xA;We needed to print model that would be max 5cm^3, so it had an impact on my choice. I decided to create a universal watch stand that would suit for my watches.&#xA;Model design Firstly, I measured dimensions of my watch band and designed a model in Fusion360 and tried to do it the largest I could.</description>
+    </item>
+  </channel>
+</rss>

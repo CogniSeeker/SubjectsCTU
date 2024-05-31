@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+  
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Week 7: Actuators and output devices | How to do (almost) anything - Oleh Borys&#39; blog</title>
+  
+  
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/assets/css/theme.min.b6d5b9b87b4de92098b22d7878ca11d92be13ecc5e85121818776fce1be8b973.css" integrity="sha256-ttW5uHtN6SCYsi14eMoR2SvhPsxehRIYGHdvzhvouXM=" crossorigin="anonymous">
+
+  
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+  
+  <link rel=apple-touch-icon sizes=180x180 href=//b232_b3b35jvc.pages.fel.cvut.cz/borysole//assets/favicon/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=//b232_b3b35jvc.pages.fel.cvut.cz/borysole//assets/favicon/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=//b232_b3b35jvc.pages.fel.cvut.cz/borysole//assets/favicon/favicon-16x16.png><link rel=manifest href=//b232_b3b35jvc.pages.fel.cvut.cz/borysole//assets/favicon/site.webmanifest><link rel=mask-icon href=//b232_b3b35jvc.pages.fel.cvut.cz/borysole//assets/favicon/safari-pinned-tab.svg color=#7817c4><link rel=icon href=//b232_b3b35jvc.pages.fel.cvut.cz/borysole//assets/favicon/favicon.ico type=image/x-icon><link rel="shortcut icon" href=//b232_b3b35jvc.pages.fel.cvut.cz/borysole//assets/favicon/favicon.ico type=image/x-icon><meta name=apple-mobile-web-app-title content="Vibrant Shadows Theme"><meta name=application-name content="Vibrant Shadows Theme"><meta name=msapplication-TileColor content="#ffffff"><meta name=theme-color content="#ffffff">
+  
+  
+  
+  <meta name="theme-color" content="#fff6f8">
+  
+  <meta name="msapplication-navbutton-color" content="#fff6f8">
+  
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  
+  
+  
+  
+  
+    
+      
+
+
+
+
+
+
+
+<meta name="title" content="Week 7: Actuators and output devices | How to do (almost) anything - Oleh Borys&#39; blog" />
+<meta name="description" content="Testing max load of two Servomotors SG90 and their responce to an encoder"> 
+
+
+<link rel="canonical" href="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week7/" />
+
+
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:description" content="Testing max load of two Servomotors SG90 and their responce to an encoder" /> 
+  <meta name="twitter:title" content="Week 7: Actuators and output devices | How to do (almost) anything - Oleh Borys&#39; blog" />
+  <meta name="twitter:url" content="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week7/" />
+  <meta name="twitter:site" content="@Softorage" /> 
+  <meta name="twitter:creator" content="@Softorage" /> 
+  <meta name="twitter:image" content="" /> 
+
+
+
+  
+  <meta property="og:title" content="Week 7: Actuators and output devices | How to do (almost) anything - Oleh Borys&#39; blog" />
+  <meta property="og:description" content="Testing max load of two Servomotors SG90 and their responce to an encoder" /> 
+  <meta property="og:site_name" content="How to do (almost) anything - Oleh Borys&#39; blog" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week7/" />
+  
+  <meta property="og:image" content="" /> 
+
+
+
+<meta property="article:published_time" content="2024-04-08 00:00:00 &#43;0000 UTC" />
+
+
+  
+  
+  <script type="application/ld+json">
+      { 
+          "@context": "http://schema.org", 
+          "@type": "BlogPosting",
+          "headline": "Week 7: Actuators and output devices",
+          
+          "url": "//b232_b3b35jvc.pages.fel.cvut.cz/borysole/",
+          
+          "datePublished": "2024-04-08T00:00:00Z",
+          
+          
+          "dateModified": "2024-04-08T00:00:00Z",
+          
+          "description": Testing max load of two Servomotors SG90 and their responce to an encoder,
+          
+          "logo": "/assets/favicon/android-chrome-512x512.png",
+          
+          
+          "author": {
+              "@type": "Person",
+              "name": "Oleh Borys"
+          },
+          
+          "publisher": {
+            "@type": "Organization",
+            "name": "Oleh Borys",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "/assets/favicon/android-chrome-512x512.png"
+            }
+          },
+          
+          "sameAs" : [
+            
+            
+              "https://github.com/CogniSeeker",  
+            
+              "https://gitlab.fel.cvut.cz/B232_B3B35JVC/borysole",  
+            
+              "https://www.instagram.com/olegboryss/"
+            ]
+          
+        }
+      </script>
+  
+
+
+    
+    <meta name="generator" content="Hugo 0.123.4">
+</head>
+
+
+  
+  
+  <body class="dark"><header>
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top flex-column">
+    <div class="d-none shadow"></div>
+    <div class="container-fluid">
+      
+      <a class="navbar-brand px-3" href="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/"><span class="brand-color"><span class="brand align-middle"><span class="align-middle ml-3">JVC home</span></span></span></a>
+      
+      
+      
+      
+      
+      
+        
+      
+      
+        
+      
+      
+      
+      
+      
+        <a class="navbar-toggler border-0 bg-nav p-2" role="button" href="#" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="text-clr2">&#9776;</span>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          
+          
+            <div class="order-md-1 my-2">
+              
+                  
+                <div class="d-inline-block ml-md-auto mr-2 my-auto p-1 pr-2 bg-nav
+                rounded-lg
+                
+                ">
+                  
+                    
+                      <a class="ml-1" href="https://github.com/CogniSeeker"><span class="fab fa-github" aria-label="Join us on Github"></span></a>
+                    
+                  
+                    
+                      <a class="ml-1" href="https://gitlab.fel.cvut.cz/B232_B3B35JVC/borysole"><span class="fab fa-gitlab" aria-label="Join us on Gitlab"></span></a>
+                    
+                  
+                    
+                      <a class="ml-1" href="https://www.instagram.com/olegboryss/"><span class="fab fa-instagram" aria-label="Join us on Instagram"></span></a>
+                    
+                  
+                </div>
+              
+              
+              
+            </div>
+          
+          
+          
+          <ul class="navbar-nav order-md-0 mr-md-auto">
+             
+            
+              
+                <li class="nav-item mx-1 my-2">
+                  <a class="btn bg-nav text-clr1" href="//b232_b3b35jvc.pages.fel.cvut.cz/borysole">Weeks</a>
+                </li>
+              
+            
+              
+                <li class="nav-item mx-1 my-2">
+                  <a class="btn bg-nav text-clr1" href="/about-me/">About me</a>
+                </li>
+              
+            
+          </ul>
+          
+
+          
+          
+        </div>
+      
+      
+    </div>
+    
+  </nav>
+</header>
+
+    
+    
+    <div id="content">
+<div class="container-fluid  text-light text-center bg-clr1 pb-3 pt-4 shadow position-relative">
+  <div style="height:3.5rem;"></div>
+  <h1>Week 7: Actuators and output devices</h1>
+  <p class="description">Testing max load of two Servomotors SG90 and their responce to an encoder</p>
+</div>
+<div class="container-fluid bg-nav p-4">
+  
+  
+  
+  
+  
+    
+  
+  
+  
+  <div class="row">
+    <div class="col-md-4">
+      <div class="bg-mat p-4 rounded" style="overflow-x: auto;">
+        <div class="h4 mb-3">
+        Contents
+        </div>
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#servomotors-max-load-and-responce">Servomotors max load and responce</a>
+      <ol>
+        <li><a href="#idea">Idea</a></li>
+        <li><a href="#scheme-and-initialization">Scheme and initialization</a></li>
+        <li><a href="#code">Code</a></li>
+        <li><a href="#testing-servos-responce-to-the-encoder-position">Testing Servos&rsquo; responce to the encoder position</a></li>
+        <li><a href="#testing-max-load-of-tower-pro-sg90-servo">Testing max load of Tower Pro SG90 Servo</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+      </div>
+    </div>
+ 
+    <div class="col-md-8">
+  
+      
+      
+      
+            
+            
+            
+            
+      
+
+      
+
+      
+        
+      
+      <div class="py-1">
+        <div class="row">
+          <div class="col-md-auto small text-muted post-meta my-auto">
+            
+            
+              
+                
+              
+            
+              
+            
+              
+                
+              
+            
+              
+                
+              
+            By Oleh Borys &#183; 5 min read &#183; <span class=''>Last updated: April 8, 2024</span></div>
+          
+          
+          
+        </div>
+        
+        
+        
+      </div>
+      
+      
+      <div class="py-3 my-2">
+      <p>Testing max load of two Servomotors SG90 and their responce to an encoder</p>
+<h2 id="servomotors-max-load-and-responce">Servomotors max load and responce</h2>
+<h3 id="idea">Idea</h3>
+<p>As you can see in my <a href="../../post/week1/">Week 1</a> post, the semestral project is to create a <strong>Robotic arm control inteface</strong>. For this purpose we will need to use encoders which would transfer information to our motors copying the movements of the human arm. There was a mechanical rotary encoder <a href="https://www.laskakit.cz/keyes-ky-040-rotacni-encoder-s-tlacitkem/">Keyes KY-040</a> in our kit, so I decided to take it for testing, altough we will need to use something more advanced later like a magnetic rotary encoder. After that I did a little research and found out that a <strong>servo</strong> would be the best option for our purposes. I had two <strong>SG90</strong> to use, let&rsquo;s test them!</p>
+<p>After the <a href="../../post/week6/">Week 6</a> project <strong>Atari Breakout game</strong> I found out that Arduino Nano has very little memory and processing power, although I tried to write the code as efficiently as possible. So I decided to switch to the <strong>ESP32</strong>.</p>
+<h3 id="scheme-and-initialization">Scheme and initialization</h3>
+<p>I used these components in my project:</p>
+<ol>
+<li><a href="https://www.laskakit.cz/iot-esp-32s-2-4ghz-dual-mode-wifi-bluetooth-rev-1--cp2102/">ESP32</a></li>
+<li><a href="https://www.laskakit.cz/plastove-micro-servo-sg90-9g--180/">Tower Pro Micro Servo SG90</a></li>
+<li><a href="https://wiki.keyestudio.com/Ks0209_keyestudio_9G_Servo_Motor_Blue_90%C2%B0">Keystudio Micro Servo 9G</a></li>
+<li><a href="https://www.laskakit.cz/keyes-ky-040-rotacni-encoder-s-tlacitkem/">Rotary encoder Keyes KY-040</a></li>
+<li><a href="https://www.laskakit.cz/dupont-propojovaci-kabely-m-m-40ks-samec-samec--20cm-/">Wires and Micro USB cabel</a></li>
+</ol>
+<p>Here is the circuit designed in <strong>Fritzing</strong>:</p>
+<p><img src="../../assets/images/week7/board_7.png" alt="If you see this text, the image cannot be displayed due to some reasons"></p>
+<p>and how it looks in the real life:</p>
+<p><img src="../../assets/images/week7/scheme.jpg" alt="If you see this text, the image cannot be displayed due to some reasons"></p>
+<h3 id="code">Code</h3>
+<p>Basically I used a code provided by <a href="https://dronebotworkshop.com">DroneBot Workshop 2019</a> for testing the servo responce to an encoder position, but with these changes: I connected and worked with two servos instead of one, and changed the counter value to increase/decrease every cycle by <strong>2</strong>, not by <strong>1</strong> (explained down).</p>
+<p>Most importantly, you need to find the right board for your ESP32. For my case <strong>DOIT ESP32 DEVKIT V1</strong> worked just fine. Also note that you should use the library called <strong>&lt;ESP32Servo.h&gt;</strong> instead of <strong>&lt;Servo.h&gt;</strong>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Arduino.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ESP32Servo.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Rotary Encoder Inputs
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#define inputCLK 32
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define inputDT 35
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Create a Servo object
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Servo myservo1;
+</span></span><span style="display:flex;"><span>Servo myservo2;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> counter <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> currentStateCLK;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> previousStateCLK; 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setup</span>() { 
+</span></span><span style="display:flex;"><span>  pinMode (inputCLK, INPUT);
+</span></span><span style="display:flex;"><span>  pinMode (inputDT, INPUT);
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  Serial.begin (<span style="color:#ae81ff">9600</span>);
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  myservo1.attach(<span style="color:#ae81ff">25</span>);
+</span></span><span style="display:flex;"><span>  myservo2.attach(<span style="color:#ae81ff">33</span>);
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  previousStateCLK <span style="color:#f92672">=</span> digitalRead(inputCLK);
+</span></span><span style="display:flex;"><span>} 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">loop</span>() {
+</span></span><span style="display:flex;"><span>  currentStateCLK <span style="color:#f92672">=</span> digitalRead(inputCLK);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (currentStateCLK <span style="color:#f92672">!=</span> previousStateCLK){ 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Encoder is rotating counterclockwise
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (digitalRead(inputDT) <span style="color:#f92672">!=</span> currentStateCLK) { 
+</span></span><span style="display:flex;"><span>      counter <span style="color:#f92672">-=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (counter <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>){
+</span></span><span style="display:flex;"><span>      counter <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// Encoder is rotating clockwise
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      counter <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (counter <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">180</span>){
+</span></span><span style="display:flex;"><span>      counter <span style="color:#f92672">=</span> <span style="color:#ae81ff">180</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Move the servo
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    myservo1.write(counter);
+</span></span><span style="display:flex;"><span>    myservo2.write(counter);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    Serial.print(<span style="color:#e6db74">&#34;Position: &#34;</span>);
+</span></span><span style="display:flex;"><span>    Serial.println(counter);
+</span></span><span style="display:flex;"><span>  } 
+</span></span><span style="display:flex;"><span>  previousStateCLK <span style="color:#f92672">=</span> currentStateCLK; 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="testing-servos-responce-to-the-encoder-position">Testing Servos&rsquo; responce to the encoder position</h3>
+<iframe width="900" height="506" src="https://www.youtube.com/embed/ykhOIYxg9zc" title="Responce of Tower Pro and Keystudio Servos SG90 to the encoder position | JVC Week 7" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>In this video I tested the responce of two different Servos SG90 to the position of encoder Keyes KY-040. There is Tower Pro Micro Servo SG90 on the left side and Keystudio Micro Servo 9G on the right. As you can see, Tower Pro moves much better. Sometimes a Servo from Keytudio didn&rsquo;t move at all or created strange noises (it&rsquo;s also possible that it was broken).</p>
+<p>The reson why I changed the counter value to increase/decrease every cycle by <strong>2</strong>, not by <strong>1</strong> is because the responce to the change of 1 degree was not accurate and sometimes two Servos just didn&rsquo;t react to that change at all.</p>
+<h3 id="testing-max-load-of-tower-pro-sg90-servo">Testing max load of Tower Pro SG90 Servo</h3>
+<p>The claimed Tower Pro SG90 Servo <strong>Torque is 1.2kg-cm for 4.8V and 1.6kg-cm for 6V</strong>. I disconnected the second Servo so that it won&rsquo;t take any power. The arm of servo has length of <strong>1.5cm</strong>. So the max load we should expect the Servo to be able to lift is <strong>1.2/1.5 = 0.8kg</strong>.</p>
+<p>I tried to lift the iPhone 12 Pro Max that weights <strong>230 + 60(case) = 290g</strong>, and my Servo was successful in this test.</p>
+<p><img src="../../assets/images/week7/load_down_iphone.jpg" alt="If you see this text, the image cannot be displayed due to some reasons"></p>
+<p><img src="../../assets/images/week7/load_up_iphone.jpg" alt="If you see this text, the image cannot be displayed due to some reasons"></p>
+<p>Then I increased the weight, adding the Step motoe NEMA17 that weights <strong>215g</strong> on top of iphone. Now the total load is <strong>290 + 215 = 505g</strong>. Let&rsquo;s try to lift that.</p>
+<p><img src="../../assets/images/week7/load_down_step.jpg" alt="If you see this text, the image cannot be displayed due to some reasons"></p>
+<p><img src="../../assets/images/week7/Load_up_step.jpg" alt="If you see this text, the image cannot be displayed due to some reasons"></p>
+<p>We can see that we lifted our load to some point successfuly, but not to the desired point. Servo even tried to reach it moving up and down, but failed.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>After conducted experiments, we can state following things:</p>
+<ol>
+<li>
+<p>The responce is in the satisfactory range for Tower Pro SG90 Servo taking into account its price and size. The Servo from Keystudio failed completely.</p>
+</li>
+<li>
+<p>Although Tower Pro SG90 Servo did&rsquo;t reach the declared maximum load, the weight capacity is also in a satisfactory range for our future load weights.</p>
+</li>
+</ol>
+<p>I think for our idea we will buy servo motors of the same size, but with metal parts and 360 degrees range of movement.</p>
+
+      </div>
+      
+      
+        <div class="pt-4 mt-2 border-top">
+          <div class="row">
+            <div class="col-md-7 small text-muted post-meta my-1">
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              </div>
+            
+            
+            
+          </div>
+        
+          
+            <div class="mt-3"><a href="../../tags/esp32/"><span class="badge badge-pill bg-clr2 text-nav mr-2 py-2">#ESP32</span></a><a href="../../tags/servo-sg90/"><span class="badge badge-pill bg-clr2 text-nav mr-2 py-2">#SERVO SG90</span></a><a href="../../tags/encoder/"><span class="badge badge-pill bg-clr2 text-nav mr-2 py-2">#ENCODER</span></a><a href="../../tags/load/"><span class="badge badge-pill bg-clr2 text-nav mr-2 py-2">#LOAD</span></a><a href="../../tags/code/"><span class="badge badge-pill bg-clr2 text-nav mr-2 py-2">#CODE</span></a></div>
+          
+        
+        </div>
+      
+    
+      
+      </div>
+    </div>
+    
+  
+  
+  
+</div>
+
+    </div><footer class="text-center p-2 text-muted footer">
+  
+    
+  
+
+  <div class="py-2 lead">
+      Stay tuned
+    </div>
+
+  <div class="py-2 copyright">
+    <small>Copyright &#169; 2024 Oleh Borys <b>&#183;</b> Content license: CC-BY-SA-3.0 <b>&#183;</b> Powered by <a class="font-weight-bold text-reset text-decoration-none" href="https://gohugo.io">Hugo</a> <b>&#183;</b> Theme <a class="font-weight-bold text-reset text-decoration-none" href="https://github.com/Softorage/HugoTheme-VibrantShadows">Vibrant Shadows</a> by <span class="softorage"><a class="font-weight-bold text-reset" href="https://softorage.com">Softorage</a></span></small>
+  </div>
+</footer>
+
+    
+    
+    <script src="/assets/js/main.min.a65d872ebfe8d4e6119e5079951ba63a7bdc584e28ec621b1004a638701e0da8.js" integrity="sha256-pl2HLr/o1OYRnlB5lRumOnvcWE4o7GIbEASmOHAeDag=" crossorigin="anonymous"></script>
+    
+    <script src="/js/custom.min.0ee40d13987d681c6929562fcaa34476ac4426a99cf20e686931d57a7d7d123a.js" integrity="sha256-DuQNE5h9aBxpKVYvyqNEdqxEJqmc8g5oaTHVen19Ejo=" crossorigin="anonymous"></script>
+    
+    <script></script>
+    
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Lato&display=swap" rel="stylesheet">
+    
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+  </body>
+</html>

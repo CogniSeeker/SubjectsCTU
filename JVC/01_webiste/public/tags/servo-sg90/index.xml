@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Servo SG90 on How to do (almost) anything - Oleh Borys&#39; blog</title>
+    <link>//b232_b3b35jvc.pages.fel.cvut.cz/borysole/tags/servo-sg90/</link>
+    <description>Recent content in Servo SG90 on How to do (almost) anything - Oleh Borys&#39; blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>All rights reserved.</copyright>
+    <lastBuildDate>Mon, 22 Apr 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/tags/servo-sg90/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Week 9: Wireless connection</title>
+      <link>//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week9/</link>
+      <pubDate>Mon, 22 Apr 2024 00:00:00 +0000</pubDate>
+      <guid>//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week9/</guid>
+      <description>Wireless Servo control using ESP32 and ESP8266&#xA;Wireless Servo control using ESP-NOW ESP32 and ESP8266 Idea I hope you enjoyed my previous project in Week 7, because this project is based on it. For the semestral project called Robotic arm control inteface I would like to transfer an Encoder position to the position of Servo, and of course it would be cool and convenient to do it wirelessly!&#xA;I came across a short video about the ESP-NOW protocol, I got interested and found out that it was a great way to connect two ESP boards.</description>
+    </item>
+    <item>
+      <title>Week 7: Actuators and output devices</title>
+      <link>//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week7/</link>
+      <pubDate>Mon, 08 Apr 2024 00:00:00 +0000</pubDate>
+      <guid>//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week7/</guid>
+      <description>Testing max load of two Servomotors SG90 and their responce to an encoder&#xA;Servomotors max load and responce Idea As you can see in my Week 1 post, the semestral project is to create a Robotic arm control inteface. For this purpose we will need to use encoders which would transfer information to our motors copying the movements of the human arm. There was a mechanical rotary encoder Keyes KY-040 in our kit, so I decided to take it for testing, altough we will need to use something more advanced later like a magnetic rotary encoder.</description>
+    </item>
+  </channel>
+</rss>

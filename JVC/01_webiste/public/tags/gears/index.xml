@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gears on How to do (almost) anything - Oleh Borys&#39; blog</title>
+    <link>//b232_b3b35jvc.pages.fel.cvut.cz/borysole/tags/gears/</link>
+    <description>Recent content in Gears on How to do (almost) anything - Oleh Borys&#39; blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>All rights reserved.</copyright>
+    <lastBuildDate>Fri, 15 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//b232_b3b35jvc.pages.fel.cvut.cz/borysole/tags/gears/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Week 4: Kinematic structures</title>
+      <link>//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week4/</link>
+      <pubDate>Fri, 15 Mar 2024 00:00:00 +0000</pubDate>
+      <guid>//b232_b3b35jvc.pages.fel.cvut.cz/borysole/post/week4/</guid>
+      <description>Creating Conveyor based on the Geneva linear mechanism&#xA;Conveyor based on the Geneva linear mechanism Preparation This week we learned how to create kinematic structures in Fusion360, especially using Add-on for creating gears.&#xA;I was inspired by the Linear Geneva mechanism&#xA;So I decided to create a conveyor based on the Geneva linear mechanism.&#xA;Model design Here is the model I designed in Fusion360&#xA;Model printing and cutting Firstly I decided to print a few parts to try they matches, especially the wholes for rotation.</description>
+    </item>
+  </channel>
+</rss>
