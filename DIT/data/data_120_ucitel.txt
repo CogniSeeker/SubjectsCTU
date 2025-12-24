@@ -1,0 +1,7 @@
+postup chyb:
+
+1. Odpojeni sensoru
+2. Odpojeni lampy
+3. pribyva druhy objekt (rychlejsi preklopeni)
+4. odpojeny sensor (zmena smeru uprostred)
+5. 
