@@ -9,13 +9,13 @@ if ~isfield(params,'W'),            params.W = 1.0; end % [s]
 if ~isfield(params,'S'),            params.S = 0.5; end % [s]
 if ~isfield(params,'mvEps'),        params.mvEps = 0.01; end
 if ~isfield(params,'dirEps'),       params.dirEps = 0.01; end
-if ~isfield(params,'tauSearchMax'), params.tauSearchMax = 4.0; end
+if ~isfield(params,'tauSearchMax'), params.tauSearchMax = 1.0; end
 if ~isfield(params,'minFlipGap'), params.minFlipGap = 2.5; end % [s]
 if ~isfield(params,'minSensorGap'), params.minSensorGap = 0.1; end   % [s]
 if ~isfield(params,'revBlank'),     params.revBlank     = 0.5; end   % [s]
 if ~isfield(params,'T12_min'),      params.T12_min      = 2; end   % [s]
 if ~isfield(params,'T12_max'),      params.T12_max      = 8.0; end  % [s]
-if ~isfield(params,'tickMinGap'),   params.tickMinGap   = 0.001; end % [s]
+if ~isfield(params,'tickMinGap'),   params.tickMinGap   = 0.07; end % [s]
 if ~isfield(params,'thr_s1'),   params.thr_s1   = 2.2; end % [s]
 if ~isfield(params,'thr_s2'),   params.thr_s2   = 3.2; end % [s]
 if ~isfield(params,'thr_tick'),   params.thr_tick   = 2.5; end % [s]
@@ -28,7 +28,7 @@ if ~isfield(params,'lampVarName'),     params.lampVarName = 'v_i5'; end
 
 % L1 disconnected -> v_i5 ~ 0 V (but short 0 V dips may occur)
 if ~isfield(params,'lampLowV'),        params.lampLowV = 0.4; end        % [V]
-if ~isfield(params,'lampLowMinDur'),   params.lampLowMinDur = 0.05; end   % [s] ignore < 0.02 s spikes
+if ~isfield(params,'lampLowMinDur'),   params.lampLowMinDur = 0.1; end   % [s] ignore
 
 % L2 disconnected -> v_i5 drops from ~1.53 V to ~1.52 V
 % We detect sustained drop vs baseline median (cal.lamp_mu)

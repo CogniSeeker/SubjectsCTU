@@ -37,7 +37,7 @@ t_dir = [res.r_dir_S1_t_s(:); res.r_dir_S2_t_s(:)];
 x_dir = [res.r_dir_S1(:);     res.r_dir_S2(:)];
 ok = isfinite(t_dir) & isfinite(x_dir) & (t_dir >= t_ignore);
 t_dir = t_dir(ok); x_dir = x_dir(ok);
-dir_fire = x_dir > 0.5;
+dir_fire = x_dir > 0.5; % binary
 
 ev.tick.t_s = t_tick; ev.tick.fire = tick_fire;
 ev.trav.t_s = t_trav; ev.trav.fire = trav_fire;

@@ -131,16 +131,3 @@ elseif isfield(res,'r_dir_B_t_s') && isfield(res,'r_dir_B') && ~isempty(res.r_di
     lab{end+1} = 'Sensor B events'; %#ok<AGROW>
 end
 end
-
-function TT = load_first_timetable(filename)
-S = load(filename);
-fn = fieldnames(S);
-for k = 1:numel(fn)
-    v = S.(fn{k});
-    if istimetable(v)
-        TT = v;
-        return;
-    end
-end
-error("No timetable found in %s.", filename);
-end

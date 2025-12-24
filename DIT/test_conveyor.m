@@ -1,5 +1,7 @@
 % TT = load_first_timetable("data/data_15s.mat");
-TT = data;
+% If you ran DIT/load_data.m, variable "data" should already be a timetable.
+% If "data" is still a struct (e.g., data = load(...)), unwrap it.
+TT = unwrap_timetable(data);
 
 params = struct();
 params.W = 2.0;
@@ -125,15 +127,29 @@ if isfield(res,'r_io_pair_t_s') && isfield(res,'r_io_pair') && ~isempty(res.r_io
 end
 end
 
-function TT = load_first_timetable(filename)
-S = load(filename);
-fn = fieldnames(S);
-for k = 1:numel(fn)
-    v = S.(fn{k});
-    if istimetable(v)
-        TT = v;
+function TT = unwrap_timetable(x)
+% Accept timetable directly, or unwrap timetable from a struct created by load().
+if istimetable(x)
+    TT = x;
+    return;
+end
+
+if isstruct(x)
+    % Prefer field named "data" if it contains a timetable
+    if isfield(x, 'data') && istimetable(x.data)
+        TT = x.data;
         return;
     end
+
+    fn = fieldnames(x);
+    for k = 1:numel(fn)
+        v = x.(fn{k});
+        if istimetable(v)
+            TT = v;
+            return;
+        end
+    end
 end
-error("No timetable found in %s.", filename);
+
+error('test_conveyor:BadInput', 'Expected a timetable or a struct containing a timetable, got %s.', class(x));
 end
