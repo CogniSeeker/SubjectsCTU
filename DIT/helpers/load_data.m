@@ -6,7 +6,7 @@ function TT = load_data(filename)
 %   TT = load_data("data/data_15s.mat");
 
 if nargin < 1 || (isstring(filename) && strlength(filename)==0)
-	filename = "data/data_15s.mat";
+	filename = "data/data_minus_motor.mat";
 end
 
 TT = load_first_timetable(filename);

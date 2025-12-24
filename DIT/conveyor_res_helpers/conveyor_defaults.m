@@ -10,7 +10,7 @@ if ~isfield(params,'S'),            params.S = 0.5; end % [s]
 if ~isfield(params,'mvEps'),        params.mvEps = 0.01; end
 if ~isfield(params,'dirEps'),       params.dirEps = 0.01; end
 if ~isfield(params,'tauSearchMax'), params.tauSearchMax = 1.0; end
-if ~isfield(params,'minFlipGap'), params.minFlipGap = 2.5; end % [s]
+if ~isfield(params,'minFlipGap'), params.minFlipGap = 1.0; end % [s]
 if ~isfield(params,'minSensorGap'), params.minSensorGap = 0.1; end   % [s]
 if ~isfield(params,'revBlank'),     params.revBlank     = 0.5; end   % [s]
 if ~isfield(params,'T12_min'),      params.T12_min      = 2; end   % [s]
@@ -21,7 +21,7 @@ if ~isfield(params,'thr_s2'),   params.thr_s2   = 3.2; end % [s]
 if ~isfield(params,'thr_tick'),   params.thr_tick   = 2.5; end % [s]
 
 if ~isfield(params,'mvOnEps'),   params.mvOnEps   = 0.02; end % [s]
-if ~isfield(params,'pwrMinTickHz'),   params.pwrMinTickHz   = 0.2; end % [s]
+if ~isfield(params,'pwrMinTickHz'),   params.pwrMinTickHz   = 0.2; end % [1/s]
 
 % --- Lamp / IO monitoring (v_i5) ---
 if ~isfield(params,'lampVarName'),     params.lampVarName = 'v_i5'; end
@@ -43,7 +43,7 @@ if ~isfield(params,'ioMargin_s'),      params.ioMargin_s = 0.6; end      % [s]
 
 % ---- Sensor disconnect / stuck detection (new) ----
 if ~isfield(params,'sensorMissingMargin_s'), params.sensorMissingMargin_s = 1.0; end
-if ~isfield(params,'sensorStuckStdV'),       params.sensorStuckStdV       = 0.005; end
+if ~isfield(params,'sensorStuckStdV'),       params.sensorStuckStdV       = 0.5; end
 if ~isfield(params,'sensorStuckLowV'),       params.sensorStuckLowV       = 0.10; end
 if ~isfield(params,'sensorStuckHighV'),      params.sensorStuckHighV      = 4.90; end
 
