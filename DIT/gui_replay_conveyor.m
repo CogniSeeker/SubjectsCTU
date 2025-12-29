@@ -9,7 +9,7 @@ params = struct();
 params.W = 2.0;
 params.S = 0.5;
 
-[res, feat] = conveyor_residuals_apply_cal(TT, cal, params);
+[res, feat] = calc_residuals(TT, cal, params);
 
 p = conveyor_alarm_defaults(struct());
 ev = extract_residual_events(res, feat, cal, p);

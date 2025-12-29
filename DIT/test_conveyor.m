@@ -7,7 +7,7 @@ params = struct();
 params.W = 2.0;
 params.S = 0.5;
 
-[res_test, feat_test] = conveyor_residuals_apply_cal(TT, cal150, params);
+[res_test, feat_test] = calc_residuals(TT, cal150, params);
 
 p = struct();
 
