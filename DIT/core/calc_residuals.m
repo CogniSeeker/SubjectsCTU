@@ -21,7 +21,7 @@ s1   = TT.v_i0(:);
 s2   = TT.v_i1(:);
 v_i2 = TT.v_i2(:);
 v_i3 = TT.v_i3(:);
-v_i4 = TT.v_i4(:);
+% v_i4 = TT.v_i4(:);
 
 thr_s1   = params.thr_s1;
 thr_s2   = params.thr_s2;
@@ -222,7 +222,7 @@ function [r_s1_disc, r_s2_disc] = detect_sensor_disconnect( ...
     t, s1, s2, win_centers, W, motor_on, dir_const, nearFlip, tS1, tS2, cal, params)
 % Detect disconnected/stuck sensors:
 %   1) Missing events for too long while motor is on (uses calibrated travel time)
-%   2) Stuck signal (low/high) with very low std in the window
+%   2) Stuck-low signal (active-low sensor permanently triggered) with very low std in the window
 
 nW = numel(win_centers);
 r_s1_disc = false(nW,1);
@@ -231,14 +231,9 @@ r_s2_disc = false(nW,1);
 % missing-event horizon derived from calibration (robust)
 T12 = [cal.T12_LR, cal.T12_RL];
 T12 = T12(isfinite(T12) & T12 > 0);
-if isempty(T12)
-    missingMax_s = 2.0*params.T12_max + params.sensorMissingMargin_s;
-else
-    missingMax_s = 2.0*max(T12) + params.sensorMissingMargin_s;
-end
+missingMax_s = 1.5 * max(T12) + params.sensorMissingMargin_s;
 
 lowV  = params.sensorStuckLowV;
-highV = params.sensorStuckHighV;
 stdV  = params.sensorStuckStdV;
 
 % pre-sort event times
@@ -274,8 +269,11 @@ for i = 1:nW
     med1 = median(s1w, 'omitnan'); sd1 = std(s1w, 0, 'omitnan');
     med2 = median(s2w, 'omitnan'); sd2 = std(s2w, 0, 'omitnan');
 
-    stuck1 = active && isfinite(med1) && isfinite(sd1) && (sd1 < stdV) && (med1 < lowV || med1 > highV);
-    stuck2 = active && isfinite(med2) && isfinite(sd2) && (sd2 < stdV) && (med2 < lowV || med2 > highV);
+    % NOTE: Do NOT treat “stuck high” as disconnected. These are active-low sensors:
+    % idle-high is normal between traversals, especially in short windows.
+    % High-level disconnects are instead detected by the missing-event rule above.
+    stuck1 = active && isfinite(med1) && isfinite(sd1) && (sd1 < stdV) && (med1 < lowV);
+    stuck2 = active && isfinite(med2) && isfinite(sd2) && (sd2 < stdV) && (med2 < lowV);
 
     r_s1_disc(i) = miss1 || stuck1;
     r_s2_disc(i) = miss2 || stuck2;

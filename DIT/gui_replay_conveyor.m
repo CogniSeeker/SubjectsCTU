@@ -21,7 +21,7 @@ T12 = T12(isfinite(T12) & T12 > 0);
 if isempty(T12)
     t_ignore = p.t_ignore_s;
 else
-    t_ignore = max(p.t_ignore_s, 2.0 * max(T12));
+    t_ignore = max(p.t_ignore_s, 1.5 * max(T12));
 end
 
 rt    = TT.Properties.RowTimes;

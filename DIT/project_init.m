@@ -5,4 +5,4 @@ addpath(fullfile(fileparts(mfilename('fullpath')), 'helpers'));
 addpath(fullfile(fileparts(mfilename('fullpath')), 'core'));
 
 % Load data to test conveyor fault detection on
-data = load_data("data/data_minus_motor.mat");
+data = load_data("data/data_minus_tick.mat");

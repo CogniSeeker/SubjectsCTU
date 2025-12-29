@@ -2,13 +2,13 @@ function ev = extract_residual_events(res, ~, cal, p)
 
 p = conveyor_alarm_defaults(p);
 
-% ignore horizon: max(5 s, 2 * max traversal time)
+% ignore horizon
 T12 = [cal.T12_LR, cal.T12_RL];
 T12 = T12(isfinite(T12) & T12 > 0);
 if isempty(T12)
     t_ignore = p.t_ignore_s;
 else
-    t_ignore = max(p.t_ignore_s, 2.0 * max(T12));
+    t_ignore = max(p.t_ignore_s, 1.5 * max(T12));
 end
 
 % ---- r_tick

@@ -5,8 +5,8 @@ if nargin < 1 || isempty(params)
     params = struct();
 end
 
-if ~isfield(params,'W'),            params.W = 1.0; end % [s]
-if ~isfield(params,'S'),            params.S = 0.5; end % [s]
+if ~isfield(params,'W'),            params.W = 0.5; end % [s]
+if ~isfield(params,'S'),            params.S = 0.25; end % [s]
 if ~isfield(params,'mvEps'),        params.mvEps = 0.01; end
 if ~isfield(params,'dirEps'),       params.dirEps = 0.01; end
 if ~isfield(params,'tauSearchMax'), params.tauSearchMax = 1.0; end
@@ -15,9 +15,9 @@ if ~isfield(params,'minSensorGap'), params.minSensorGap = 0.1; end   % [s]
 if ~isfield(params,'revBlank'),     params.revBlank     = 0.5; end   % [s]
 if ~isfield(params,'T12_min'),      params.T12_min      = 2; end   % [s]
 if ~isfield(params,'T12_max'),      params.T12_max      = 8.0; end  % [s]
-if ~isfield(params,'tickMinGap'),   params.tickMinGap   = 0.07; end % [s]
-if ~isfield(params,'thr_s1'),   params.thr_s1   = 2.2; end % [s]
-if ~isfield(params,'thr_s2'),   params.thr_s2   = 3.2; end % [s]
+if ~isfield(params,'tickMinGap'),   params.tickMinGap   = 0.05; end % [s]
+if ~isfield(params,'thr_s1'),   params.thr_s1   = 2; end % [s]
+if ~isfield(params,'thr_s2'),   params.thr_s2   = 3.8; end % [s]
 if ~isfield(params,'thr_tick'),   params.thr_tick   = 2.5; end % [s]
 
 if ~isfield(params,'mvOnEps'),   params.mvOnEps   = 0.02; end % [s]
@@ -59,6 +59,8 @@ if ~isfield(params,'motorDiscLowV'),   params.motorDiscLowV   = 0.10; end % [V]
 if ~isfield(params,'sensorMissingMargin_s'), params.sensorMissingMargin_s = 1.0; end
 if ~isfield(params,'sensorStuckStdV'),       params.sensorStuckStdV       = 0.5; end
 if ~isfield(params,'sensorStuckLowV'),       params.sensorStuckLowV       = 0.10; end
+% NOTE: for active-low sensors, idle-high is normal; stuck-high is detected via missing events.
+% Kept for backward compatibility.
 if ~isfield(params,'sensorStuckHighV'),      params.sensorStuckHighV      = 4.90; end
 
 

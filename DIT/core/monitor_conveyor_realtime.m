@@ -39,7 +39,7 @@ T12 = T12(isfinite(T12) & T12 > 0);
 if isempty(T12)
     t_ignore = cfg.t_ignore_s;
 else
-    t_ignore = max(cfg.t_ignore_s, 2.0 * max(T12));
+    t_ignore = max(cfg.t_ignore_s, 1.5 * max(T12));
 end
 ui.ignore.Text = sprintf('ignore: %.2f s', t_ignore);
 
