@@ -8,8 +8,13 @@ params = struct();
 params.W = 1.0;
 params.S = 0.5;
 
-[res15, cal15, feat15]   = conveyor_residuals(TT15, params);
-[res150, cal150, feat150] = conveyor_residuals(TT150, params);
+% 1) Calibrate (no residual computation here)
+[cal15,  ~] = conveyor_residuals(TT15,  params);
+[cal150, ~] = conveyor_residuals(TT150, params);
+
+% 2) Apply calibration to compute residuals
+[res15,  feat15]  = conveyor_residuals_apply_cal(TT15,  cal15,  params);
+[res150, feat150] = conveyor_residuals_apply_cal(TT150, cal150, params);
 
 disp(cal15)
 disp(cal150)
@@ -62,31 +67,6 @@ if ~isempty(h)
     legend(h, lab, 'Interpreter', 'none');
 end
 title('r_{dir} events (150 s)');
-
-
-% ==================================
-
-[res_test, feat_test] = conveyor_residuals_apply_cal(TT150, cal150, params);
-
-figure;
-plot(feat_test.win_center_s, res_test.r_tick); grid on;
-xlabel('t [s]'); ylabel('r_{tick}'); title('Test: r_{tick} (150 s)');
-
-figure;
-[h, lab] = plot_rtrav(res_test);
-grid on; xlabel('t [s]'); ylabel('r_{trav}');
-if ~isempty(h)
-    legend(h, lab, 'Interpreter', 'none');
-end
-title('Test: r_{trav} events (150 s)');
-
-figure;
-[h, lab] = plot_rdir(res_test);
-grid on; xlabel('t [s]'); ylabel('r_{dir} (0/1)');
-if ~isempty(h)
-    legend(h, lab, 'Interpreter', 'none');
-end
-title('Test: r_{dir} events (150 s)');
 
 % =========================
 % Local helper functions

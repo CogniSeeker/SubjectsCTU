@@ -1,18 +1,16 @@
 
 
-function [res, cal, feat] = conveyor_residuals(TT, params)
-%CONVEYOR_RESIDUALS  Feature extraction + residuals for conveyor diagnostics.
+function [cal, feat] = conveyor_residuals(TT, params)
+%CONVEYOR_RESIDUALS  Calibration only (no residual computation).
 %
-% Logic unchanged; refactored into helper functions.
+% This function estimates the calibration parameters needed by
+% CONVEYOR_RESIDUALS_APPLY_CAL:
+%   cal.k, cal.b, cal.sigma_f
+%   cal.T12_LR, cal.T12_RL, cal.sigmaT_LR, cal.sigmaT_RL
+%   cal.tau_min, cal.tau_max
+%   cal.lamp_mu, cal.lamp_sigma (optional, if v_i5 exists)
 %
-% OUTPUT fields (same as working version):
-%   res.r_tick_t_s, res.r_tick
-%   res.LR.t_start_s, res.LR.T_meas_s, res.LR.r_trav
-%   res.RL.t_start_s, res.RL.T_meas_s, res.RL.r_trav
-%   res.r_dir_S1_t_s, res.r_dir_S1
-%   res.r_dir_S2_t_s, res.r_dir_S2
-%   cal.k, cal.b, cal.sigma_f, cal.T12_LR, cal.T12_RL, cal.sigmaT_LR, cal.sigmaT_RL, cal.tau_min, cal.tau_max
-%   feat.win_center_s, feat.f_tick, feat.mv_abs_mean, feat.validWindowMask
+% It outputs the calibration struct CAL and the windowed feature struct FEAT.
 
 params = conveyor_defaults(params);
 
@@ -213,10 +211,6 @@ sigmaT_RL = robust_sigma(RL.T_meas_s - T12_RL);
 sigmaT_LR = max(sigmaT_LR, 0.02);
 sigmaT_RL = max(sigmaT_RL, 0.02);
 
-% Travel residuals
-LR.r_trav = abs(LR.T_meas_s - T12_LR) ./ max(sigmaT_LR, eps);
-RL.r_trav = abs(RL.T_meas_s - T12_RL) ./ max(sigmaT_RL, eps);
-
 fprintf("pairs: LR=%d, RL=%d\n", numel(LR.T_meas_s), numel(RL.T_meas_s));
 
 % -----------------------
@@ -225,28 +219,18 @@ fprintf("pairs: LR=%d, RL=%d\n", numel(LR.T_meas_s), numel(RL.T_meas_s));
 [tau_min, tau_max] = estimate_tau_bounds_dirgated(tS1, tS2, t, dir, t_flip, params.tauSearchMax);
 
 % -----------------------
-% Residuals
-% -----------------------
-r_tick = nan(size(win_centers));
-r_tick(validWin) = abs(f_tick(validWin) - (k_hat*mv_mean(validWin) + b_hat)) ./ max(sigma_f, eps);
-
-% Direction residual: evaluate only at end sensor events for that direction
-r_dir_S1 = dir_residual_at_events_dirgated(tS1, t, dir, t_flip, tau_min, tau_max, -1);
-r_dir_S2 = dir_residual_at_events_dirgated(tS2, t, dir, t_flip, tau_min, tau_max, +1);
-
-% -----------------------
 % Lamp baseline stats (optional v_i5)
 % -----------------------
-cal.lamp_mu = NaN;
-cal.lamp_sigma = NaN;
+lamp_mu = NaN;
+lamp_sigma = NaN;
 
 if ismember(params.lampVarName, TT.Properties.VariableNames)
     v_lamp = TT.(params.lampVarName)(:);
     ok = isfinite(v_lamp) & (v_lamp > params.lampLowV); % exclude near-zero (L1 open)
     if nnz(ok) >= 50
-        cal.lamp_mu = median(v_lamp(ok), 'omitnan');
-        cal.lamp_sigma = robust_sigma(v_lamp(ok) - cal.lamp_mu);
-        cal.lamp_sigma = max(cal.lamp_sigma, 0.002); % avoid tiny sigma blow-up
+        lamp_mu = median(v_lamp(ok), 'omitnan');
+        lamp_sigma = robust_sigma(v_lamp(ok) - lamp_mu);
+        lamp_sigma = max(lamp_sigma, 0.002); % avoid tiny sigma blow-up
     end
 end
 
@@ -263,16 +247,7 @@ cal.sigmaT_LR = sigmaT_LR;
 cal.sigmaT_RL = sigmaT_RL;
 cal.tau_min   = tau_min;
 cal.tau_max   = tau_max;
-
-res = struct();
-res.r_tick_t_s = win_centers;
-res.r_tick     = r_tick;
-res.LR         = LR;
-res.RL         = RL;
-
-res.r_dir_S1_t_s = tS1;
-res.r_dir_S1     = r_dir_S1;
-res.r_dir_S2_t_s = tS2;
-res.r_dir_S2     = r_dir_S2;
+cal.lamp_mu   = lamp_mu;
+cal.lamp_sigma = lamp_sigma;
 
 end

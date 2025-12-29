@@ -1,7 +1,7 @@
-% TT = load_first_timetable("data/data_15s.mat");
+TT = load_first_timetable("data/data_minus_motor.mat");
 % If you ran DIT/load_data.m, variable "data" should already be a timetable.
 % If "data" is still a struct (e.g., data = load(...)), unwrap it.
-TT = unwrap_timetable(data);
+% TT = unwrap_timetable(data);
 
 params = struct();
 params.W = 2.0;
