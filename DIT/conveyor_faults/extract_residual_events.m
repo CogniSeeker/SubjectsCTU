@@ -1,4 +1,4 @@
-function ev = extract_residual_events(res, feat, cal, p)
+function ev = extract_residual_events(res, ~, cal, p)
 
 p = conveyor_alarm_defaults(p);
 
@@ -17,6 +17,7 @@ x_tick = res.r_tick(:);
 ok = isfinite(t_tick) & isfinite(x_tick) & (t_tick >= t_ignore);
 t_tick = t_tick(ok); x_tick = x_tick(ok);
 tick_fire = x_tick > p.thr_r_tick;
+tick_hi_fire = x_tick > p.thr_r_tick_hi;
 
 % ---- r_trav
 t_trav = []; x_trav = [];
@@ -31,6 +32,7 @@ end
 ok = isfinite(t_trav) & isfinite(x_trav) & (t_trav >= t_ignore);
 t_trav = t_trav(ok); x_trav = x_trav(ok);
 trav_fire = x_trav > p.thr_r_trav;
+trav_hi_fire = x_trav > p.thr_r_trav_hi;
 
 % ---- r_dir
 t_dir = [res.r_dir_S1_t_s(:); res.r_dir_S2_t_s(:)];
@@ -40,7 +42,9 @@ t_dir = t_dir(ok); x_dir = x_dir(ok);
 dir_fire = x_dir > 0.5; % binary
 
 ev.tick.t_s = t_tick; ev.tick.fire = tick_fire;
+ev.tick_hi.t_s = t_tick; ev.tick_hi.fire = tick_hi_fire;
 ev.trav.t_s = t_trav; ev.trav.fire = trav_fire;
+ev.trav_hi.t_s = t_trav; ev.trav_hi.fire = trav_hi_fire;
 ev.dir.t_s  = t_dir;  ev.dir.fire  = dir_fire;
 
 % ---- r_io (lamp L1/L2 + pair mismatch)
@@ -70,6 +74,12 @@ if isfield(res,'r_io_pair_t_s') && isfield(res,'r_io_pair')
 else
     ev.io_pair.t_s = []; ev.io_pair.fire = false(0,1);
 end
+% TODO: what does it mean? Should we remove io_pair at all?
+% Treat pairing-mismatch as a travel anomaly as well (it indicates missing counterpart)
+if ~isempty(ev.io_pair.t_s)
+    ev.trav.t_s   = [ev.trav.t_s;   ev.io_pair.t_s(:)];
+    ev.trav.fire  = [ev.trav.fire;  ev.io_pair.fire(:)];
+end
 
 % ---- r_pwr (binary time series)
 if isfield(res,'r_pwr_t_s') && isfield(res,'r_pwr')
@@ -98,6 +108,33 @@ s2_fire = x_s2 > 0.5;
 
 ev.s1_disc.t_s = t_s1; ev.s1_disc.fire = s1_fire;
 ev.s2_disc.t_s = t_s2; ev.s2_disc.fire = s2_fire;
+
+% ---- r_tick_disc (binary time series)
+ev.tick_disc = struct('t_s',[], 'fire',false(0,1));
+if isfield(res,'r_tick_disc_t_s') && isfield(res,'r_tick_disc')
+    t_td = res.r_tick_disc_t_s(:); x_td = res.r_tick_disc(:);
+    ok = isfinite(t_td) & isfinite(x_td) & (t_td >= t_ignore);
+    ev.tick_disc.t_s = t_td(ok);
+    ev.tick_disc.fire = x_td(ok) > 0.5;
+end
+
+% ---- r_motor_disc (binary time series)
+ev.motor_disc = struct('t_s',[], 'fire',false(0,1));
+if isfield(res,'r_motor_disc_t_s') && isfield(res,'r_motor_disc')
+    t_md = res.r_motor_disc_t_s(:); x_md = res.r_motor_disc(:);
+    ok = isfinite(t_md) & isfinite(x_md) & (t_md >= t_ignore);
+    ev.motor_disc.t_s = t_md(ok);
+    ev.motor_disc.fire = x_md(ok) > 0.5;
+end
+
+% ---- r_lamps_disc (binary time series)
+ev.lamps_disc = struct('t_s',[], 'fire',false(0,1));
+if isfield(res,'r_lamps_disc_t_s') && isfield(res,'r_lamps_disc')
+    t_ld = res.r_lamps_disc_t_s(:); x_ld = res.r_lamps_disc(:);
+    ok = isfinite(t_ld) & isfinite(x_ld) & (t_ld >= t_ignore);
+    ev.lamps_disc.t_s = t_ld(ok);
+    ev.lamps_disc.fire = x_ld(ok) > 0.5;
+end
 
 
 ev.meta.t_ignore_s = t_ignore; % optional for printing/debug

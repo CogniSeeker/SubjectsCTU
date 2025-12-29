@@ -4,4 +4,5 @@ addpath(fullfile(fileparts(mfilename('fullpath')), 'conveyor_faults'));
 addpath(fullfile(fileparts(mfilename('fullpath')), 'helpers'));
 addpath(fullfile(fileparts(mfilename('fullpath')), 'core'));
 
-TT = load_data("data/data_15s.mat");
+% Load data to test conveyor fault detection on
+data = load_data("data/data_minus_motor.mat");

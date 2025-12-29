@@ -13,6 +13,7 @@ params.S = 0.5;
 
 p = conveyor_alarm_defaults(struct());
 ev = extract_residual_events(res, feat, cal, p);
+alarms = classify_at_times(ev, p);
 
 % ignore horizon
 T12 = [cal.T12_LR, cal.T12_RL];
@@ -76,7 +77,7 @@ while isvalid(fig) && ~fig.UserData.stop
         st = makeState(false,false,false,false,false,false,"STARTUP_IGNORE");
         overall = "OK";
     else
-        st = evalStateAtTime(t, ev, p);
+        st = evalStateAtTime(t, alarms, p);
         overall = "OK";
         if st.pwr || st.class ~= "NONE"
             overall = "FAULT";
@@ -147,36 +148,50 @@ st = struct('pwr',logical(pwr), 'lamp',logical(lamp), 'io_pair',logical(io_pair)
             'class',string(cls));
 end
 
-function st = evalStateAtTime(t0, ev, p)
-isActive = @(te, fe) any(fe & (te > (t0 - p.hold_s)) & (te <= t0));
+function st = evalStateAtTime(t0, alarms, p)
 
-tickA = isfield(ev,'tick') && isActive(ev.tick.t_s, ev.tick.fire);
-travA = isfield(ev,'trav') && isActive(ev.trav.t_s, ev.trav.fire);
-dirA  = isfield(ev,'dir')  && isActive(ev.dir.t_s,  ev.dir.fire);
+hold_s = getfield_with_default(p, 'hold_s', 0.5);
+t1 = t0 - hold_s;
+mask = (alarms.t_s > t1) & (alarms.t_s <= t0);
 
-ioPairA = isfield(ev,'io_pair') && isActive(ev.io_pair.t_s, ev.io_pair.fire);
-ioL1A   = isfield(ev,'io_L1')   && isActive(ev.io_L1.t_s,   ev.io_L1.fire);
-ioL2A   = isfield(ev,'io_L2')   && isActive(ev.io_L2.t_s,   ev.io_L2.fire);
-lampA   = ioL1A | ioL2A;
+tickA = any_col(alarms, "tick", mask);
+travA = any_col(alarms, "trav", mask);
+dirA  = any_col(alarms, "dir",  mask);
 
-pwrA    = isfield(ev,'pwr') && isActive(ev.pwr.t_s, ev.pwr.fire);
+% Legacy UI rows (pwr/lamp/io_pair) are kept for display only.
+% With the new classifier, they may be absent from alarms -> shown as OK.
+pwrA    = any_col(alarms, "pwr", mask);
+ioPairA = any_col(alarms, "io_pair", mask);
+lampA   = any_col(alarms, "io_L1", mask) | any_col(alarms, "io_L2", mask);
 
-cls = "NONE";
-if pwrA
-    cls = "GLOBAL_POWER";
-elseif lampA
-    cls = "LAMP_OPEN";
-elseif ioPairA && travA
-    cls = "SENSOR_MISALIGNED";
-elseif ioPairA && ~dirA && ~tickA && ~travA
-    cls = "IO_FAULT";
-elseif dirA && ~tickA && ~travA && ~ioPairA && ~lampA
-    cls = "HBRIDGE_STUCK";
-elseif ~dirA && (tickA || travA) && ~ioPairA && ~lampA
-    cls = "MECH_ANOMALY";
-elseif (tickA || travA || dirA || ioPairA || lampA) && ~pwrA
-    cls = "MIXED";
+cls = choose_class(alarms, mask);
+st = makeState(pwrA, lampA, ioPairA, dirA, travA, tickA, cls);
 end
 
-st = makeState(pwrA, lampA, ioPairA, dirA, travA, tickA, cls);
+function tf = any_col(T, col, mask)
+    if isempty(T) || ~ismember(col, string(T.Properties.VariableNames))
+        tf = false; return;
+    end
+    x = T.(col);
+    if ~islogical(x), x = logical(x); end
+    tf = any(x(mask));
+end
+
+function cls = choose_class(alarms, mask)
+    cls = "NONE";
+    if isempty(alarms) || ~any(mask), return; end
+    if ~ismember("class", string(alarms.Properties.VariableNames)), return; end
+    prio = ["TICK_DISCONNECTED", ...
+            "MOTOR_DISCONNECTED","S1_DISCONNECTED","S2_DISCONNECTED","LAMPS_DISCONNECTED", ...
+            "MOTOR_SHIFTED","BELT_STUCK_ONE_DIR","BELT_ABNORMAL_SPEED","FOREIGN_OBJECTS_DIR_SWITCH", ...
+            "MIXED","NONE"];
+    recent = alarms.class(mask);
+    for k = 1:numel(prio)
+        if any(recent == prio(k)), cls = prio(k); return; end
+    end
+    cls = recent(end);
+end
+
+function v = getfield_with_default(s, f, d)
+    if isstruct(s) && isfield(s,f), v = s.(f); else, v = d; end
 end

@@ -24,3 +24,10 @@ if ~isfield(params,'sensorStuckLowV'),       params.sensorStuckLowV       = 0.10
 if ~isfield(params,'sensorStuckHighV'),      params.sensorStuckHighV      = 4.90; end
 
 cause the values should not be the same for both sensors
+
+
+TODO (less important):
+
+Plot dir vs time, overlay S1 and S2 enter-low markers.
+Check whether S1 markers mostly occur during dir=-1 and S2 markers during dir=+1.
+If it’s reversed, swap the requiredDir signs (or flip your dir definition).

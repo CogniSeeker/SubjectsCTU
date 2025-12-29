@@ -21,7 +21,7 @@ s1   = TT.v_i0(:);
 s2   = TT.v_i1(:);
 v_i2 = TT.v_i2(:);
 v_i3 = TT.v_i3(:);
-v_i4 = TT.v_i4(:); %#ok<NASGU>
+v_i4 = TT.v_i4(:);
 
 thr_s1   = params.thr_s1;
 thr_s2   = params.thr_s2;
@@ -68,6 +68,11 @@ f_tick   = nan(size(win_centers));
 mv_mean  = nan(size(win_centers));
 dir_const = false(size(win_centers));
 
+% "Disconnected" residuals at window centers (binary)
+r_tick_disc  = nan(size(win_centers));
+r_motor_disc = nan(size(win_centers));
+r_lamps_disc = nan(size(win_centers));
+
 for i = 1:numel(win_centers)
     a = win_starts(i); b = a + W;
     inWin = (t >= a) & (t < b);
@@ -79,6 +84,29 @@ for i = 1:numel(win_centers)
 
     d = dir(inWin); d = d(d ~= 0);
     dir_const(i) = ~isempty(d) && all(d == d(1));
+
+    % ---- Disconnected detection (near-0V and low variance) ----
+    % Tick channel (v_i3)
+    x3 = v_i3(inWin);
+    if ~isempty(x3)
+        r_tick_disc(i) = double(mean(abs(x3), 'omitnan') < params.tickDiscLowV && std(x3, 0, 'omitnan') < params.discStdV);
+    end
+
+    % Motor proxy (v_i2)
+    x2 = v_i2(inWin);
+    if ~isempty(x2)
+        r_motor_disc(i) = double(mean(abs(x2), 'omitnan') < params.motorDiscLowV && std(x2, 0, 'omitnan') < params.discStdV);
+    end
+
+    % Lamp channel (v_i5) if present
+    if ismember(params.lampVarName, TT.Properties.VariableNames)
+        x5 = TT.(params.lampVarName)(inWin);
+        if ~isempty(x5)
+            r_lamps_disc(i) = double(mean(abs(x5), 'omitnan') < params.lampLowV && std(x5, 0, 'omitnan') < params.discStdV);
+        end
+    else
+        r_lamps_disc(i) = NaN;
+    end
 end
 
 motor_on = mv_mean > params.mvEps;
@@ -106,6 +134,7 @@ LR.r_trav = abs(LR.T_meas_s - cal.T12_LR) ./ max(cal.sigmaT_LR, eps);
 RL.r_trav = abs(RL.T_meas_s - cal.T12_RL) ./ max(cal.sigmaT_RL, eps);
 
 % Direction residual using fixed cal tau bounds
+% S1 event is only scored when dir just before the event is -1
 r_dir_S1 = dir_residual_at_events_dirgated(tS1, t, dir, t_flip, cal.tau_min, cal.tau_max, -1);
 r_dir_S2 = dir_residual_at_events_dirgated(tS2, t, dir, t_flip, cal.tau_min, cal.tau_max, +1);
 % -----------------------
@@ -176,6 +205,16 @@ res.r_s1_disc     = r_s1_disc;
 
 res.r_s2_disc_t_s = win_centers;
 res.r_s2_disc     = r_s2_disc;
+
+% New: disconnected residuals
+res.r_tick_disc_t_s  = win_centers;
+res.r_tick_disc      = r_tick_disc;
+
+res.r_motor_disc_t_s = win_centers;
+res.r_motor_disc     = r_motor_disc;
+
+res.r_lamps_disc_t_s = win_centers;
+res.r_lamps_disc     = r_lamps_disc;
 
 end
 

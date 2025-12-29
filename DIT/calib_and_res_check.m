@@ -68,46 +68,8 @@ if ~isempty(h)
 end
 title('r_{dir} events (150 s)');
 
-% =========================
-% Local helper functions
-% =========================
-function [h, lab] = plot_rtrav(res)
-% Returns handles and labels for legend, robust to empty series.
+% -----------------------
+% All other residuals (pwr/io/disconnect/etc.)
+% -----------------------
+plot_all_residuals(res150, feat150, '150 s');
 
-h = gobjects(0);
-lab = {};
-
-if isfield(res,'LR') && isfield(res.LR,'t_start_s') && isfield(res.LR,'r_trav') ...
-        && ~isempty(res.LR.t_start_s) && ~isempty(res.LR.r_trav)
-    h(end+1) = stem(res.LR.t_start_s, res.LR.r_trav, '.', 'HandleVisibility','on'); hold on; %#ok<AGROW>
-    lab{end+1} = 'LR (S1->S2)'; %#ok<AGROW>
-end
-
-if isfield(res,'RL') && isfield(res.RL,'t_start_s') && isfield(res.RL,'r_trav') ...
-        && ~isempty(res.RL.t_start_s) && ~isempty(res.RL.r_trav)
-    h(end+1) = stem(res.RL.t_start_s, res.RL.r_trav, '.', 'HandleVisibility','on'); hold on; %#ok<AGROW>
-    lab{end+1} = 'RL (S2->S1)'; %#ok<AGROW>
-end
-end
-
-function [h, lab] = plot_rdir(res)
-% Supports both old field names (A/B) and new (S1/S2).
-h = gobjects(0);
-lab = {};
-
-if isfield(res,'r_dir_S1_t_s') && isfield(res,'r_dir_S1') && ~isempty(res.r_dir_S1_t_s)
-    h(end+1) = stem(res.r_dir_S1_t_s, res.r_dir_S1, '.', 'HandleVisibility','on'); hold on; %#ok<AGROW>
-    lab{end+1} = 'Sensor S1 end events'; %#ok<AGROW>
-elseif isfield(res,'r_dir_A_t_s') && isfield(res,'r_dir_A') && ~isempty(res.r_dir_A_t_s)
-    h(end+1) = stem(res.r_dir_A_t_s, res.r_dir_A, '.', 'HandleVisibility','on'); hold on; %#ok<AGROW>
-    lab{end+1} = 'Sensor A events'; %#ok<AGROW>
-end
-
-if isfield(res,'r_dir_S2_t_s') && isfield(res,'r_dir_S2') && ~isempty(res.r_dir_S2_t_s)
-    h(end+1) = stem(res.r_dir_S2_t_s, res.r_dir_S2, '.', 'HandleVisibility','on'); hold on; %#ok<AGROW>
-    lab{end+1} = 'Sensor S2 end events'; %#ok<AGROW>
-elseif isfield(res,'r_dir_B_t_s') && isfield(res,'r_dir_B') && ~isempty(res.r_dir_B_t_s)
-    h(end+1) = stem(res.r_dir_B_t_s, res.r_dir_B, '.', 'HandleVisibility','on'); hold on; %#ok<AGROW>
-    lab{end+1} = 'Sensor B events'; %#ok<AGROW>
-end
-end

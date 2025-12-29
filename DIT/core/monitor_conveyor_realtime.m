@@ -62,7 +62,7 @@ try, dq.ScansAvailableFcn = []; catch, end
 % =========================
 function onScansAvailable(src, ~)
     if ~isvalid(fig)
-        try, stop(src); end
+        try, stop(src); catch, end
         return;
     end
 
@@ -268,8 +268,10 @@ function cls = choose_class(alarms, mask)
     cls = "NONE";
     if isempty(alarms) || ~any(mask), return; end
     if ~ismember("class", string(alarms.Properties.VariableNames)), return; end
-    prio = ["GLOBAL_POWER","LAMP_OPEN","SENSOR_MISALIGNED","IO_FAULT", ...
-            "HBRIDGE_STUCK","MECH_ANOMALY","MULTI_ANOMALY","MIXED_WITH_IO","NONE"];
+    prio = ["TICK_DISCONNECTED", ...
+            "MOTOR_DISCONNECTED","S1_DISCONNECTED","S2_DISCONNECTED","LAMPS_DISCONNECTED", ...
+            "MOTOR_SHIFTED","BELT_STUCK_ONE_DIR","BELT_ABNORMAL_SPEED","FOREIGN_OBJECTS_DIR_SWITCH", ...
+            "MIXED","NONE"];
     recent = alarms.class(mask);
     for k = 1:numel(prio)
         if any(recent == prio(k)), cls = prio(k); return; end

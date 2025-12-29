@@ -77,10 +77,9 @@ if layout == "single"
         grid(ax, 'minor');
         title(ax, sigTitles(k), 'Interpreter', 'none');
         ylabel(ax, sprintf('%s [V]', sigNames(k)), 'Interpreter', 'none');
+        % Keep x-axis tick labels on every subplot (useful when figure is small).
         if k == numel(sigNames)
             xlabel(ax, 't [s]');
-        else
-            ax.XTickLabel = [];
         end
     end
 else

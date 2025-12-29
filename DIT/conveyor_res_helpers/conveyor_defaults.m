@@ -41,6 +41,20 @@ if ~isfield(params,'lampEventMinGap'), params.lampEventMinGap = 0.2; end % [s]
 % Pair-mismatch IO residual (sensor-based)
 if ~isfield(params,'ioMargin_s'),      params.ioMargin_s = 0.6; end      % [s]
 
+% ---- Generic "disconnected" detection (near-0V and low variance) ----
+% These residuals are intended to detect wiring/disconnect cases where the
+% channel collapses to ~0 V for a sustained period.
+if ~isfield(params,'discStdV'),        params.discStdV        = 0.05; end % [V]
+
+% Tick channel disconnected (v_i3)
+if ~isfield(params,'tickDiscLowV'),    params.tickDiscLowV    = 0.10; end % [V]
+
+% Motor terminal disconnected (v_i4)
+if ~isfield(params,'motorDiscLowV'),   params.motorDiscLowV   = 0.10; end % [V]
+
+% Lamp channel disconnected (v_i5) -> reuse lampLowV as low threshold
+% (lampLowV already defaults to ~0.4 V)
+
 % ---- Sensor disconnect / stuck detection (new) ----
 if ~isfield(params,'sensorMissingMargin_s'), params.sensorMissingMargin_s = 1.0; end
 if ~isfield(params,'sensorStuckStdV'),       params.sensorStuckStdV       = 0.5; end
