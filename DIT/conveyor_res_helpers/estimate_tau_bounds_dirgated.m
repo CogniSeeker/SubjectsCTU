@@ -25,7 +25,8 @@ if numel(dt) >= 5
     tau_min = quantile(dt, 0.05);
     tau_max = quantile(dt, 0.95);
 else
-    tau_min = 0.05;
-    tau_max = 1.00;
+    tau_min = 0.03;
+    tau_max = 0.07;
 end
+
 end

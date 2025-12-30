@@ -266,6 +266,7 @@ for i = 1:nW
         last2 = tS2(k2); k2 = k2 + 1;
     end
 
+    % NOTE: not used anymore
     miss1 = active && isfinite(last1) && ((t0 - last1) > missingMax_s);
     miss2 = active && isfinite(last2) && ((t0 - last2) > missingMax_s);
 
@@ -280,11 +281,17 @@ for i = 1:nW
     % NOTE: Do NOT treat “stuck high” as disconnected. These are active-low sensors:
     % idle-high is normal between traversals, especially in short windows.
     % High-level disconnects are instead detected by the missing-event rule above.
-    stuck1 = active && isfinite(med1) && isfinite(sd1) && (sd1 < stdV) && (med1 < lowV);
-    stuck2 = active && isfinite(med2) && isfinite(sd2) && (sd2 < stdV) && (med2 < lowV);
+    %
+    % IMPORTANT: stuck-low/disconnect is a wiring/ADC condition and should NOT depend
+    % on motor/dir/nearFlip gating. Otherwise the alarm can appear to "drop out".
+    stuck1 = isfinite(med1) && isfinite(sd1) && (sd1 < stdV) && (med1 < lowV);
+    stuck2 = isfinite(med2) && isfinite(sd2) && (sd2 < stdV) && (med2 < lowV);
+    
+    % r_s1_disc(i) = miss1 || stuck1;
+    % r_s2_disc(i) = miss2 || stuck2;
 
-    r_s1_disc(i) = miss1 || stuck1;
-    r_s2_disc(i) = miss2 || stuck2;
+    r_s1_disc(i) = stuck1;
+    r_s2_disc(i) = stuck2;
 end
 
 % output as double 0/1 if you prefer (but logical is fine)

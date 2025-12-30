@@ -5,11 +5,12 @@ postup chyb:
 3. pribyva druhy objekt (rychlejsi preklopeni)
 4. odpojeny sensor (zmena smeru uprostred)
 5. motor (vypnout)
-6. tick
 7. motor (odjet)
 8. Jamming (from right to left if i am not mistaken)
 9. Mozna jeste neco
+6. tick
 
 V jakych bodech jaem si jisty vic (vcetne poradi):
 
+Ne:
 1, (2, 3 promenlive), 4, 5, (6, 7 promenlive mezi sebou)

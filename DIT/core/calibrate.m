@@ -218,24 +218,31 @@ end
 T12_LR = median(LR.T_meas_s, 'omitnan');
 T12_RL = median(RL.T_meas_s, 'omitnan');
 
-sigmaT_LR = robust_sigma(LR.T_meas_s - T12_LR);
-sigmaT_RL = robust_sigma(RL.T_meas_s - T12_RL);
+% Estimate traversal-time variability.
+% With very few pairs (3–5), MAD can underestimate spread (and can hit 0 if
+% at least half of samples are identical/quantized). Use a conservative
+% small-sample estimator: max(MAD, IQR/1.349, sample std).
+eLR = LR.T_meas_s - T12_LR;
+eRL = RL.T_meas_s - T12_RL;
 
-% Crop it from the bottom
-sigmaT_LR_raw = sigmaT_LR;
-sigmaT_RL_raw = sigmaT_RL;
-sigmaT_LR = max(sigmaT_LR, 0.02);
-sigmaT_RL = max(sigmaT_RL, 0.02);
+[sigmaT_LR_mad, sigmaT_LR_iqr, sigmaT_LR_std] = local_sigma_components(eLR);
+[sigmaT_RL_mad, sigmaT_RL_iqr, sigmaT_RL_std] = local_sigma_components(eRL);
 
-% Diagnostic: if sigma collapses to the floor, print the underlying travel times.
-% This usually happens when measured traversal times are identical/quantized so MAD=0.
-if ~isfinite(sigmaT_LR_raw) || sigmaT_LR_raw <= 0.02
-    fprintf('sigmaT_LR raw=%.6f -> clamped to %.3f; T12_LR=%.6f; LR.T_meas_s=%s\n', ...
-        sigmaT_LR_raw, sigmaT_LR, T12_LR, mat2str(LR.T_meas_s(:).', 6));
+sigmaT_LR = max([sigmaT_LR_mad, sigmaT_LR_iqr, sigmaT_LR_std]);
+sigmaT_RL = max([sigmaT_RL_mad, sigmaT_RL_iqr, sigmaT_RL_std]);
+
+% Crop it from the bottom (avoid tiny sigma blow-up downstream)
+sigmaT_LR = max(sigmaT_LR, 0.3);
+sigmaT_RL = max(sigmaT_RL, 0.3);
+
+% Diagnostic: print components when we end up at the floor.
+if ~isfinite(sigmaT_LR) || sigmaT_LR <= 0.3
+    fprintf('sigmaT_LR floor: MAD=%.6f IQR=%.6f STD=%.6f -> %.3f; T12_LR=%.6f; LR.T_meas_s=%s\n', ...
+        sigmaT_LR_mad, sigmaT_LR_iqr, sigmaT_LR_std, sigmaT_LR, T12_LR, mat2str(LR.T_meas_s(:).', 6));
 end
-if ~isfinite(sigmaT_RL_raw) || sigmaT_RL_raw <= 0.02
-    fprintf('sigmaT_RL raw=%.6f -> clamped to %.3f; T12_RL=%.6f; RL.T_meas_s=%s\n', ...
-        sigmaT_RL_raw, sigmaT_RL, T12_RL, mat2str(RL.T_meas_s(:).', 6));
+if ~isfinite(sigmaT_RL) || sigmaT_RL <= 0.3
+    fprintf('sigmaT_RL floor: MAD=%.6f IQR=%.6f STD=%.6f -> %.3f; T12_RL=%.6f; RL.T_meas_s=%s\n', ...
+        sigmaT_RL_mad, sigmaT_RL_iqr, sigmaT_RL_std, sigmaT_RL, T12_RL, mat2str(RL.T_meas_s(:).', 6));
 end
 
 fprintf("pairs: LR=%d, RL=%d\n", numel(LR.T_meas_s), numel(RL.T_meas_s));
@@ -277,4 +284,51 @@ cal.tau_max   = tau_max;
 cal.lamp_mu   = lamp_mu;
 cal.lamp_sigma = lamp_sigma;
 
+end
+
+function [s_mad, s_iqr, s_std] = local_sigma_components(e)
+e = e(:);
+e = e(isfinite(e));
+if isempty(e)
+    s_mad = NaN; s_iqr = NaN; s_std = NaN;
+    return;
+end
+
+s_mad = robust_sigma(e);
+
+if numel(e) >= 2
+    % Sample std (small-n friendly; outlier-sensitive but ok for n<=5)
+    s_std = std(e, 0);
+
+    % IQR-based sigma (robust-ish): sigma ~= IQR / 1.349 for normal data
+    es = sort(e);
+    q1 = local_quantile_sorted(es, 0.25);
+    q3 = local_quantile_sorted(es, 0.75);
+    s_iqr = (q3 - q1) / 1.349;
+else
+    s_std = 0;
+    s_iqr = 0;
+end
+end
+
+function q = local_quantile_sorted(xSorted, p)
+% Linear-interpolated quantile for a sorted vector (p in [0,1]).
+n = numel(xSorted);
+if n == 0
+    q = NaN;
+    return;
+elseif n == 1
+    q = xSorted(1);
+    return;
+end
+
+p = min(max(p, 0), 1);
+pos = (n - 1) * p + 1;
+i = floor(pos);
+f = pos - i;
+if i >= n
+    q = xSorted(n);
+else
+    q = (1 - f) * xSorted(i) + f * xSorted(i + 1);
+end
 end

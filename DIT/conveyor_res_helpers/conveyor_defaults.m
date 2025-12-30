@@ -19,8 +19,8 @@ if ~isfield(params,'revBlank'),     params.revBlank     = 0.5; end   % [s]
 if ~isfield(params,'T12_min'),      params.T12_min      = 2; end   % [s]
 if ~isfield(params,'T12_max'),      params.T12_max      = 8.0; end  % [s]
 if ~isfield(params,'tickMinGap'),   params.tickMinGap   = 0.05; end % [s]
-if ~isfield(params,'thr_s1'),   params.thr_s1   = 2.0; end % [s]
-if ~isfield(params,'thr_s2'),   params.thr_s2   = 3.8; end % [s]
+if ~isfield(params,'thr_s1'),   params.thr_s1   = 1.8; end % [s]
+if ~isfield(params,'thr_s2'),   params.thr_s2   = 3.6; end % [s]
 if ~isfield(params,'thr_tick'),   params.thr_tick   = 2.5; end % [s]
 
 % Use tick signal (v_i3) only up to this time (seconds from start).
@@ -64,8 +64,8 @@ if ~isfield(params,'motorDiscLowV'),   params.motorDiscLowV   = 0.10; end % [V]
 
 % ---- Sensor disconnect / stuck detection (new) ----
 if ~isfield(params,'sensorMissingMargin_s'), params.sensorMissingMargin_s = 1.0; end
-if ~isfield(params,'sensorStuckStdV'),       params.sensorStuckStdV       = 0.5; end
-if ~isfield(params,'sensorStuckLowV'),       params.sensorStuckLowV       = 0.10; end
+if ~isfield(params,'sensorStuckStdV'),       params.sensorStuckStdV       = 1.5; end
+if ~isfield(params,'sensorStuckLowV'),       params.sensorStuckLowV       = 0.5; end
 % NOTE: for active-low sensors, idle-high is normal; stuck-high is detected via missing events.
 % Kept for backward compatibility.
 if ~isfield(params,'sensorStuckHighV'),      params.sensorStuckHighV      = 4.90; end
