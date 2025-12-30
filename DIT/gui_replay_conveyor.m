@@ -3,7 +3,7 @@
 
 %% ---- Inputs ----
 TT = data;     % or load_first_timetable("data/data_150s.mat");
-cal = cal150;
+cal = cal30_new;
 
 params = struct();
 params.W = 2.0;

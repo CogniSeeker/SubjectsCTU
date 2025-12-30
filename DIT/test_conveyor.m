@@ -5,20 +5,20 @@ TT = unwrap_timetable(data);
 
 params = struct();
 
-[res_test, feat_test] = calc_residuals(TT, cal150, params);
+[res_test, feat_test] = calc_residuals(TT, cal30_new, params);
 
 p = struct();
 
-alarms = conveyor_fault_alarms_from_residuals(res_test, feat_test, cal150, p);
+alarms = conveyor_fault_alarms_from_residuals(res_test, feat_test, cal30_new, p);
 disp(pretty_alarm_table(alarms))
 
 % Also print the persistent state table (continuous-ish view)
-S = build_alarm_states(res_test, feat_test, cal150, p);
+S = build_alarm_states(res_test, feat_test, cal30_new, p);
 Tstates = alarm_states_table(S);
 disp(pretty_alarm_table(Tstates))
 
 % Plot all available residuals (including any added in the future)
-plot_all_residuals(res_test, feat_test, 'Test', cal150, p);
+plot_all_residuals(res_test, feat_test, 'Test', cal30_new, p);
 
 function T = pretty_alarm_table(T)
 %PRETTY_ALARM_TABLE Make logical columns more readable in Command Window.

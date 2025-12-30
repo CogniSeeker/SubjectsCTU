@@ -14,6 +14,13 @@ function [cal, feat] = calibrate(TT, params)
 
 params = conveyor_defaults(params);
 
+% Tick usage cutoff (seconds from start). If the tick channel disappears
+% mid-recording, set this to the last usable time.
+tickUseUntil_s = params.tickUseUntil_s;
+if isempty(tickUseUntil_s) || ~isscalar(tickUseUntil_s) || ~isfinite(tickUseUntil_s)
+    tickUseUntil_s = Inf;
+end
+
 % -----------------------
 % Extract time and channels
 % -----------------------
@@ -75,6 +82,8 @@ tick_hi = (v_i3 > thr_tick);
 tick_rise_idx = find(diff([false; tick_hi]) == 1);
 t_tick_rise_raw = t(tick_rise_idx);
 t_tick_rise = debounce_times_adaptive(t_tick_rise_raw, params.tickMinGap);
+% Use tick only up to cutoff
+t_tick_rise = t_tick_rise(t_tick_rise <= tickUseUntil_s);
 
 % -----------------------
 % Sliding windows -> f_tick and mean |M_V|
@@ -136,8 +145,13 @@ for i = 1:numel(win_centers)
     inWin = (t >= a) & (t < b);
 
     % Stable tick frequency estimate: counts per window
-    nEdges = sum((t_tick_rise >= a) & (t_tick_rise < b));
-    f_tick(i) = nEdges / W;
+    % Only compute f_tick when the whole window is within the tick-valid range.
+    if b <= tickUseUntil_s
+        nEdges = sum((t_tick_rise >= a) & (t_tick_rise < b));
+        f_tick(i) = nEdges / W;
+    else
+        f_tick(i) = NaN;
+    end
 
     mv_mean(i) = mean(mv_abs(inWin), 'omitnan');
 
@@ -208,8 +222,21 @@ sigmaT_LR = robust_sigma(LR.T_meas_s - T12_LR);
 sigmaT_RL = robust_sigma(RL.T_meas_s - T12_RL);
 
 % Crop it from the bottom
+sigmaT_LR_raw = sigmaT_LR;
+sigmaT_RL_raw = sigmaT_RL;
 sigmaT_LR = max(sigmaT_LR, 0.02);
 sigmaT_RL = max(sigmaT_RL, 0.02);
+
+% Diagnostic: if sigma collapses to the floor, print the underlying travel times.
+% This usually happens when measured traversal times are identical/quantized so MAD=0.
+if ~isfinite(sigmaT_LR_raw) || sigmaT_LR_raw <= 0.02
+    fprintf('sigmaT_LR raw=%.6f -> clamped to %.3f; T12_LR=%.6f; LR.T_meas_s=%s\n', ...
+        sigmaT_LR_raw, sigmaT_LR, T12_LR, mat2str(LR.T_meas_s(:).', 6));
+end
+if ~isfinite(sigmaT_RL_raw) || sigmaT_RL_raw <= 0.02
+    fprintf('sigmaT_RL raw=%.6f -> clamped to %.3f; T12_RL=%.6f; RL.T_meas_s=%s\n', ...
+        sigmaT_RL_raw, sigmaT_RL, T12_RL, mat2str(RL.T_meas_s(:).', 6));
+end
 
 fprintf("pairs: LR=%d, RL=%d\n", numel(LR.T_meas_s), numel(RL.T_meas_s));
 

@@ -21,9 +21,9 @@ for i = 1:numel(tS2)
     if dti > 0 && dti < tauSearchMax, dt(end+1,1) = dti; end %#ok<AGROW>
 end
 
-if numel(dt) >= 10
-    tau_min = quantile(dt, 0.01);
-    tau_max = quantile(dt, 0.99);
+if numel(dt) >= 5
+    tau_min = quantile(dt, 0.05);
+    tau_max = quantile(dt, 0.95);
 else
     tau_min = 0.05;
     tau_max = 1.00;

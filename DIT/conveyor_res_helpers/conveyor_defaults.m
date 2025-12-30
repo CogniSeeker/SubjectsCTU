@@ -12,13 +12,20 @@ if ~isfield(params,'dirEps'),       params.dirEps = 0.01; end
 if ~isfield(params,'tauSearchMax'), params.tauSearchMax = 1.0; end
 if ~isfield(params,'minFlipGap'), params.minFlipGap = 1.0; end % [s]
 if ~isfield(params,'minSensorGap'), params.minSensorGap = 0.1; end   % [s]
+% Active-low sensor event must remain below threshold for at least this long
+% to be accepted as a real "enter low" event.
+if ~isfield(params,'sensorLowMinDur_s'), params.sensorLowMinDur_s = 0.08; end % [s]
 if ~isfield(params,'revBlank'),     params.revBlank     = 0.5; end   % [s]
 if ~isfield(params,'T12_min'),      params.T12_min      = 2; end   % [s]
 if ~isfield(params,'T12_max'),      params.T12_max      = 8.0; end  % [s]
 if ~isfield(params,'tickMinGap'),   params.tickMinGap   = 0.05; end % [s]
-if ~isfield(params,'thr_s1'),   params.thr_s1   = 2; end % [s]
+if ~isfield(params,'thr_s1'),   params.thr_s1   = 2.0; end % [s]
 if ~isfield(params,'thr_s2'),   params.thr_s2   = 3.8; end % [s]
 if ~isfield(params,'thr_tick'),   params.thr_tick   = 2.5; end % [s]
+
+% Use tick signal (v_i3) only up to this time (seconds from start).
+% Set to Inf to use the full recording.
+if ~isfield(params,'tickUseUntil_s'), params.tickUseUntil_s = 13; end % [s]
 
 if ~isfield(params,'mvOnEps'),   params.mvOnEps   = 0.02; end % [s]
 if ~isfield(params,'pwrMinTickHz'),   params.pwrMinTickHz   = 0.2; end % [1/s]

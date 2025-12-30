@@ -77,6 +77,7 @@ for i = 1:numel(win_centers)
     a = win_starts(i); b = a + W;
     inWin = (t >= a) & (t < b);
 
+    % Tick frequency estimate: count rising edges per window.
     nEdges = sum((t_tick_rise >= a) & (t_tick_rise < b));
     f_tick(i) = nEdges / W;
 
@@ -87,9 +88,14 @@ for i = 1:numel(win_centers)
 
     % ---- Disconnected detection (near-0V and low variance) ----
     % Tick channel (v_i3)
+    % IMPORTANT: tickUseUntil_s is only for tick-*feature* usage (edge counting).
+    % Disconnection is a wiring/ADC condition and should be evaluated over
+    % the whole recording whenever v_i3 samples exist.
     x3 = v_i3(inWin);
-    if ~isempty(x3)
+    if ~isempty(x3) && any(isfinite(x3))
         r_tick_disc(i) = double(mean(abs(x3), 'omitnan') < params.tickDiscLowV && std(x3, 0, 'omitnan') < params.discStdV);
+    else
+        r_tick_disc(i) = NaN;
     end
 
     % Motor proxy (v_i2)
@@ -159,7 +165,9 @@ end
 % -----------------------
 % r_pwr (tick disappearance while motor seems on)
 % -----------------------
-r_pwr = detect_rpwr_from_tick(win_centers, mv_mean, f_tick, params);
+r_pwr = double(detect_rpwr_from_tick(win_centers, mv_mean, f_tick, params));
+% When tick isn't available/considered, r_pwr is unknown (NaN), not false.
+r_pwr(~isfinite(f_tick)) = NaN;
 
 % -----------------------
 % Sensor disconnect residuals (binary time series at window centers)
