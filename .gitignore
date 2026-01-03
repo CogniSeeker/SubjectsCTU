@@ -1,1 +1,4 @@
 DIT/other/*.zip
+
+**venv
+.vscode
