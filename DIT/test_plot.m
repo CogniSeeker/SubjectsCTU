@@ -1,1 +1,1 @@
-plot_data("data/data_120_ucitel.mat", "single");
+plot_data("data/data_minus_tick.mat", "single", 13);

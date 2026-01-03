@@ -47,7 +47,7 @@ handled = containers.Map('KeyType','char','ValueType','logical');
             return;
         end
         tt = tt(:); xx = xx(:);
-        ok = isfinite(tt) & (tt >= t_ignore);
+        ok = isfinite(tt) & isfinite(xx) & (tt >= t_ignore);
         tt = tt(ok);
         xx = xx(ok);
     end
