@@ -258,7 +258,7 @@ try
 
     % Persistent states (each on its own figure)
     if isfield(S,'tick_state')
-        figure;
+        fig = figure('Color','w');
         hold on;
         stairs(tS, double(S.tick_state(mask)), 'LineWidth', 1.2);
         if isfield(S,'tick_hi_state')
@@ -267,7 +267,9 @@ try
         if isfield(S,'tick_nan')
             stairs(tS, double(S.tick_nan(mask)), '--', 'LineWidth', 1.0);
         end
-        grid on; ylim([-0.1 1.1]);
+        grid on; grid minor; ylim([-0.1 1.1]);
+        local_apply_light_figure(fig);
+        local_apply_light_axes(gca);
         xlabel('t [s]'); ylabel('state');
         title(mkTitle('state: tick (persistent until recovery)'));
         legend({'tick','tick_hi','tick_nan'}, 'Interpreter','none', 'Location','best');
@@ -277,13 +279,15 @@ try
     if isfield(S,'trav_hi_state'), plot_state('state: trav_hi (persistent until recovery)', double(S.trav_hi_state)); end
 
     if isfield(S,'dir_state')
-        figure;
+        fig = figure('Color','w');
         hold on;
         stairs(tS, double(S.dir_state(mask)), 'LineWidth', 1.2);
         if isfield(S,'dir_nan_event_latest')
             stairs(tS, double(S.dir_nan_event_latest(mask)), '--', 'LineWidth', 1.0);
         end
-        grid on; ylim([-0.1 1.1]);
+        grid on; grid minor; ylim([-0.1 1.1]);
+        local_apply_light_figure(fig);
+        local_apply_light_axes(gca);
         xlabel('t [s]'); ylabel('state');
         title(mkTitle('state: dir (persistent until recovery)'));
         legend({'dir','dir_nan_event_latest'}, 'Interpreter','none', 'Location','best');
@@ -295,11 +299,42 @@ end
 end
 
 function local_plot_state(ttl, t, y)
-figure;
+fig = figure('Color','w');
 stairs(t, y, 'LineWidth', 1.2);
 grid on;
+grid minor;
 ylim([-0.1 1.1]);
 xlabel('t [s]');
 ylabel('state');
 title(ttl, 'Interpreter','none');
+local_apply_light_figure(fig);
+local_apply_light_axes(gca);
+end
+
+function local_apply_light_figure(fig)
+% Keep plots readable regardless of MATLAB theme.
+try
+    if ~isempty(fig) && isvalid(fig)
+        fig.Color = 'w';
+    end
+catch
+end
+end
+
+function local_apply_light_axes(ax)
+% Match the light plot styling used in helpers/plot_data.m.
+try
+    if isempty(ax) || ~isgraphics(ax)
+        return;
+    end
+    ax.Color = 'w';
+    ax.XColor = [0 0 0];
+    ax.YColor = [0 0 0];
+    ax.ZColor = [0 0 0];
+    ax.GridColor = [0.15 0.15 0.15];
+    ax.MinorGridColor = [0.15 0.15 0.15];
+    ax.GridAlpha = 0.15;
+    ax.MinorGridAlpha = 0.08;
+catch
+end
 end
